@@ -55,7 +55,7 @@
   <SubComponents>
     <Container class="com.k33ptoo.components.KGradientPanel" name="kGradientPanel2">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Title Bar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Product Management"/>
         <Property name="kBorderRadius" type="int" value="0"/>
         <Property name="kEndColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="4d" green="31" red="1b" type="rgb"/>
@@ -87,7 +87,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/user (8).png"/>
+              <Image iconType="3" name="/resources/box (2).png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Product Management"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

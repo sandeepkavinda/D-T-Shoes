@@ -78,14 +78,14 @@ public class AddBrand extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        kGradientPanel2.setToolTipText("Title Bar");
+        kGradientPanel2.setToolTipText("Brand");
         kGradientPanel2.setkBorderRadius(0);
         kGradientPanel2.setkEndColor(new java.awt.Color(27, 49, 77));
         kGradientPanel2.setkStartColor(new java.awt.Color(0, 117, 105));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/user (8).png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/brand-image.png"))); // NOI18N
         jLabel1.setText("Brand");
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jLabel1.setIconTextGap(10);
