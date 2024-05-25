@@ -561,6 +561,7 @@ public class GrnManagement extends javax.swing.JPanel {
         jLabel17.setText("Supplier");
         jLabel17.setPreferredSize(new java.awt.Dimension(43, 35));
 
+        jTextField18.setEditable(false);
         jTextField18.setPreferredSize(new java.awt.Dimension(64, 35));
         jTextField18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -568,6 +569,7 @@ public class GrnManagement extends javax.swing.JPanel {
             }
         });
 
+        jTextField19.setEditable(false);
         jTextField19.setPreferredSize(new java.awt.Dimension(64, 35));
         jTextField19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -575,6 +577,7 @@ public class GrnManagement extends javax.swing.JPanel {
             }
         });
 
+        jTextField20.setEditable(false);
         jTextField20.setPreferredSize(new java.awt.Dimension(64, 35));
 
         jLabel12.setText("Payment");
@@ -598,6 +601,7 @@ public class GrnManagement extends javax.swing.JPanel {
         jButton7.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Save GRN");
+        jButton7.setEnabled(false);
         jButton7.setPreferredSize(new java.awt.Dimension(89, 35));
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -649,21 +653,20 @@ public class GrnManagement extends javax.swing.JPanel {
                             .addComponent(jTextField20, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                             .addComponent(jTextField19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)))))
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jFormattedTextField3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -807,6 +810,8 @@ public class GrnManagement extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please select a Supplier!", "warning", JOptionPane.WARNING_MESSAGE);
         } else if (productId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please select a Product!", "warning", JOptionPane.WARNING_MESSAGE);
+        } else if (qty.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please type quantity!", "warning", JOptionPane.WARNING_MESSAGE);
         } else if (Integer.parseInt(qty) <= 0) {
             JOptionPane.showMessageDialog(this, "Invalid quantity!", "warning", JOptionPane.WARNING_MESSAGE);
         } else if (jFormattedTextField1.getText().isEmpty()) {
@@ -866,6 +871,7 @@ public class GrnManagement extends javax.swing.JPanel {
 
             }
             calculateTotal();
+            jButton7.setEnabled(true);
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -910,15 +916,20 @@ public class GrnManagement extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please confirm GRN date!", "Error", JOptionPane.WARNING_MESSAGE);
         } else if (jFormattedTextField3.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please type paid amount!", "Error", JOptionPane.WARNING_MESSAGE);
+        } else if (jTextField18.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please generate GRN No!", "Error", JOptionPane.WARNING_MESSAGE);
         } else {
             String grnId = jTextField18.getText();
             double paidAmount = Double.parseDouble(jFormattedTextField3.getText());
+            double bPrice = Double.parseDouble(buyingPrice);
+            double sPrice = Double.parseDouble(sellingPrice);
+
             try {
 
                 MySQL.execute("INSERT INTO `grn` VALUES('" + grnId + "','" + stringGrnDate + "','" + paidAmount + "','" + supplierId + "')");
                 ResultSet resultSet = MySQL.execute("SELECT * FROM `stock` WHERE "
                         + "`p_id`='" + productId + "' AND "
-                        + "`price`='" + buyingPrice + "'");
+                        + "`price`='" + bPrice + "'");
 
                 String sid = "0";
 
@@ -934,11 +945,11 @@ public class GrnManagement extends javax.swing.JPanel {
 
                     long stockId = System.currentTimeMillis();
                     MySQL.execute("INSERT INTO `stock` (`barcode`,`price`,`available_qty`,`p_id`,`s_id`,`co_id`) "
-                            + "VALUES ('" + stockId + "','" + buyingPrice + "','" + qty + "','" + productId + "','" + sizeMap.get(size) + "','" + colorMap.get(color) + "')");
+                            + "VALUES ('" + stockId + "','" + bPrice + "','" + qty + "','" + productId + "','" + sizeMap.get(size) + "','" + colorMap.get(color) + "')");
 
                     ResultSet resultSet2 = MySQL.execute("SELECT * FROM `stock` WHERE "
                             + "`p_id`='" + productId + "' AND "
-                            + "`price`='" + buyingPrice + "'");
+                            + "`price`='" + bPrice + "'");
                     if (resultSet2.next()) {
                         sid = resultSet2.getString("barcode");
 
@@ -947,7 +958,7 @@ public class GrnManagement extends javax.swing.JPanel {
                 }
                 MySQL.execute("INSERT INTO `grn_item` "
                         + "(`id`,`qty`,`buying_price`,`product_p_id`,`grn_barcode`) "
-                        + "VALUES ('" + sid + "','" + qty + "','" + buyingPrice + "','" + productId + "','" + grnId + "')");
+                        + "VALUES ('" + sid + "','" + qty + "','" + bPrice + "','" + productId + "','" + grnId + "')");
 
                 clearGRN();
                 JOptionPane.showMessageDialog(this, "GRN saved successfully!", "information", JOptionPane.INFORMATION_MESSAGE);
