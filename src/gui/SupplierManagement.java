@@ -546,7 +546,7 @@ public class SupplierManagement extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-//    private HashMap<String, Object> companyMap;
+   private HashMap<String, Object> companyMap;
 //    
 //      private void loadCompanyMap() {
 //        try {
