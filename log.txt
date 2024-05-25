@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-05-25T20:25:28.446653800Z</date>
+  <millis>1716668728446</millis>
+  <nanos>653800</nanos>
+  <sequence>0</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.UserManagementPanel</class>
+  <method>loadUserTypes</method>
+  <thread>19</thread>
+  <message>java.lang.NullPointerException: Cannot invoke "java.sql.Connection.createStatement()" because "model.MySQL.connection" is null</message>
+</record>
+<record>
+  <date>2024-05-25T20:25:28.469204100Z</date>
+  <millis>1716668728469</millis>
+  <nanos>204100</nanos>
+  <sequence>1</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.UserManagementPanel</class>
+  <method>loadUsers</method>
+  <thread>19</thread>
+  <message>java.lang.NullPointerException: Cannot invoke "java.sql.Connection.createStatement()" because "model.MySQL.connection" is null</message>
+</record>
+</log>
