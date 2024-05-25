@@ -11,51 +11,54 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import model.UserBean;
+import subpanel.BrandSetiing;
+import subpanel.ColorSetting;
+import subpanel.CompanySetting;
 
 public class Dashboard extends javax.swing.JFrame {
-
+    
     public static final Color PRIMARYCOLOR = new Color(0, 117, 105);
     public static UserBean userBean;
-
+    
     public void setUserBean(UserBean userBean) {
         this.userBean = userBean;
         jLabel6.setText(userBean.getUsername());
     }
-
+    
     public static void editTable(JTable[] table) {
         for (int i = 0; i < table.length; i++) {
             table[i].getTableHeader().setBackground(PRIMARYCOLOR);
             table[i].getTableHeader().setForeground(Color.WHITE);
         }
     }
-
+    
     public Dashboard() {
         initComponents();
-
+        
         MainPanel.removeAll();
         DashboardPanel dp = new DashboardPanel();
         MainPanel.add(dp, BorderLayout.CENTER);
         SwingUtilities.updateComponentTreeUI(jPanel3);
     }
-
+    
     private void setFontBold(JToggleButton jToggleButton) {
         Font currentFont = jToggleButton.getFont();
         Font boldFont = currentFont.deriveFont(Font.BOLD);
         jToggleButton.setFont(boldFont);
     }
-
+    
     private void setFontNormal(JToggleButton jToggleButton) {
         Font currentFont = jToggleButton.getFont();
         Font normalFont = currentFont.deriveFont(Font.PLAIN);
         jToggleButton.setFont(normalFont);
     }
-
+    
     private void changePanel(JPanel panel) {
         MainPanel.removeAll();
         MainPanel.add(panel, BorderLayout.CENTER);
         SwingUtilities.updateComponentTreeUI(jPanel3);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -91,6 +94,9 @@ public class Dashboard extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -567,6 +573,31 @@ public class Dashboard extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+
+        jMenuItem1.setText("Brand");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem2.setText("Color");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Company");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -675,9 +706,9 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-
+        
         if (jToggleButton1.isSelected()) {
-
+            
             Thread t = new Thread(
                     () -> {
                         for (int i = jPanel2.getWidth(); i >= 47; i -= 47) {
@@ -696,9 +727,9 @@ public class Dashboard extends javax.swing.JFrame {
                     }
             );
             t.start();
-
+            
         } else {
-
+            
             Thread t = new Thread(
                     () -> {
                         for (int i = 50; i <= 300; i += 50) {
@@ -753,7 +784,9 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton5ActionPerformed
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
-        changePanel(new ProductManagement());
+        ProductManagement pm = new ProductManagement();
+        pm.setDashboard(this);
+        changePanel(pm);
     }//GEN-LAST:event_jToggleButton6ActionPerformed
 
     private void jToggleButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton7ActionPerformed
@@ -776,12 +809,25 @@ public class Dashboard extends javax.swing.JFrame {
         changePanel(new InvoiceManagement());
     }//GEN-LAST:event_jToggleButton12ActionPerformed
 
-    public static void main(String args[]) {
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        
+      new BrandSetiing(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       new ColorSetting(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        new CompanySetting(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    
+    public static void main(String args[]) {
+        
         FlatLightLaf.registerCustomDefaultsSource("style");
         FlatLightLaf.setup();
         UIManager.put("TextComponent.arc", 10);
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Dashboard().setVisible(true);
@@ -804,6 +850,9 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
