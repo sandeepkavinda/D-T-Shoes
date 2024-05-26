@@ -12,7 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.MySQL;
 import subpanel.grnItemView;
+import subpanel.grnView;
 import subpanel.invoiceItemView;
+import subpanel.invoiceView;
 
 public class ReturnManagement extends javax.swing.JPanel {
 
@@ -25,8 +27,13 @@ public class ReturnManagement extends javax.swing.JPanel {
 
     }
 
+    //Invoice ID
+    public JFormattedTextField getjFormattedTextField9() {
+        return jFormattedTextField9;
+    }
+
     //Invoice Item ID
-    public JTextField getjFormattedTextField3() {
+    public JFormattedTextField getjFormattedTextField3() {
         return jFormattedTextField3;
     }
 
@@ -50,6 +57,11 @@ public class ReturnManagement extends javax.swing.JPanel {
         return jFormattedTextField2;
     }
 
+    //GRN ID
+    public JTextField getjFormattedTextField10() {
+        return jFormattedTextField10;
+    }
+
     //GRN Item ID
     public JTextField getjFormattedTextField6() {
         return jFormattedTextField6;
@@ -62,7 +74,7 @@ public class ReturnManagement extends javax.swing.JPanel {
 
     //GRN Barcode
     public JFormattedTextField getjFormattedTextField7() {
-        return jFormattedTextField7;
+        return jFormattedTextField10;
     }
 
     //GRN Color
@@ -172,10 +184,11 @@ public class ReturnManagement extends javax.swing.JPanel {
         jTextField10.setText(" ");
         jFormattedTextField2.setText(" ");
         jFormattedTextField4.setText(" ");
+        jFormattedTextField9.setText(" ");
 
         jFormattedTextField3.setFocusable(true);
 
-        jFormattedTextField7.setText(" ");
+        jFormattedTextField10.setText(" ");
         jFormattedTextField6.setText(" ");
         jTextField9.setText(" ");
         jTextField11.setText(" ");
@@ -208,6 +221,9 @@ public class ReturnManagement extends javax.swing.JPanel {
         jFormattedTextField3 = new javax.swing.JFormattedTextField();
         jFormattedTextField4 = new javax.swing.JFormattedTextField();
         jButton5 = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        jFormattedTextField9 = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
@@ -217,7 +233,6 @@ public class ReturnManagement extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -230,7 +245,9 @@ public class ReturnManagement extends javax.swing.JPanel {
         jFormattedTextField6 = new javax.swing.JFormattedTextField();
         jFormattedTextField8 = new javax.swing.JFormattedTextField();
         jButton6 = new javax.swing.JButton();
-        jFormattedTextField7 = new javax.swing.JFormattedTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jFormattedTextField10 = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
@@ -273,7 +290,7 @@ public class ReturnManagement extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(275, 654));
 
-        jLabel2.setText("Invoice Item ID");
+        jLabel2.setText("Invoice ID");
 
         jLabel3.setText("Stock Barcode");
 
@@ -301,18 +318,22 @@ public class ReturnManagement extends javax.swing.JPanel {
 
         jLabel4.setText("Product Title");
 
+        jTextField3.setEditable(false);
         jTextField3.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jLabel13.setText("Color");
 
+        jTextField10.setEditable(false);
         jTextField10.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jLabel14.setText("Size");
 
         jLabel15.setText("Quantity");
 
+        jFormattedTextField1.setEditable(false);
         jFormattedTextField1.setPreferredSize(new java.awt.Dimension(69, 35));
 
+        jFormattedTextField2.setEditable(false);
         jFormattedTextField2.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jFormattedTextField3.setEditable(false);
@@ -339,6 +360,30 @@ public class ReturnManagement extends javax.swing.JPanel {
             }
         });
 
+        jLabel18.setText("Invoice Item ID");
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/add-button (1).png"))); // NOI18N
+        jButton7.setBorder(null);
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jButton7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton7KeyPressed(evt);
+            }
+        });
+
+        jFormattedTextField9.setEditable(false);
+        jFormattedTextField9.setPreferredSize(new java.awt.Dimension(69, 35));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -346,26 +391,31 @@ public class ReturnManagement extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jFormattedTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jFormattedTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jFormattedTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel2)
+                            .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel13)
                             .addComponent(jLabel14)
-                            .addComponent(jLabel15))
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel18))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jFormattedTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jFormattedTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -373,15 +423,22 @@ public class ReturnManagement extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,7 +458,7 @@ public class ReturnManagement extends javax.swing.JPanel {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -437,7 +494,7 @@ public class ReturnManagement extends javax.swing.JPanel {
                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel9)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(23, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,11 +544,13 @@ public class ReturnManagement extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -502,9 +561,7 @@ public class ReturnManagement extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(275, 654));
 
-        jLabel5.setText("GRN Item ID");
-
-        jLabel6.setText("GRN Barcode");
+        jLabel5.setText("GRN Barcode");
 
         jButton3.setBackground(new java.awt.Color(27, 49, 77));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -530,10 +587,12 @@ public class ReturnManagement extends javax.swing.JPanel {
 
         jLabel12.setText("Product Title");
 
+        jTextField9.setEditable(false);
         jTextField9.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jLabel16.setText("Color");
 
+        jTextField11.setEditable(false);
         jTextField11.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jLabel17.setText("Quantity");
@@ -543,6 +602,7 @@ public class ReturnManagement extends javax.swing.JPanel {
         jFormattedTextField6.setEditable(false);
         jFormattedTextField6.setPreferredSize(new java.awt.Dimension(69, 35));
 
+        jFormattedTextField8.setEditable(false);
         jFormattedTextField8.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
@@ -554,7 +614,19 @@ public class ReturnManagement extends javax.swing.JPanel {
             }
         });
 
-        jFormattedTextField7.setPreferredSize(new java.awt.Dimension(69, 35));
+        jLabel19.setText("GRN Item ID");
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/add-button (1).png"))); // NOI18N
+        jButton8.setBorder(null);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jFormattedTextField10.setEditable(false);
+        jFormattedTextField10.setPreferredSize(new java.awt.Dimension(69, 35));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -564,29 +636,33 @@ public class ReturnManagement extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel17))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jFormattedTextField7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jFormattedTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                            .addComponent(jFormattedTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jFormattedTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jFormattedTextField8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jFormattedTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jFormattedTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jFormattedTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         jPanel5Layout.setVerticalGroup(
@@ -595,13 +671,15 @@ public class ReturnManagement extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFormattedTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addGap(12, 12, 12)
-                .addComponent(jFormattedTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -622,7 +700,7 @@ public class ReturnManagement extends javax.swing.JPanel {
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -701,7 +779,7 @@ public class ReturnManagement extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -742,7 +820,6 @@ public class ReturnManagement extends javax.swing.JPanel {
         String productSize = jFormattedTextField2.getText();
         String quantity = jFormattedTextField4.getText();
 
-        
         //customer return validation
         if (invoiceId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Invoice Item Id", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -755,8 +832,6 @@ public class ReturnManagement extends javax.swing.JPanel {
         } else if (productSize.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Product Size", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (quantity.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Product Quantity", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (quantity.matches(quantity)) {
             JOptionPane.showMessageDialog(this, "Please Enter Product Quantity", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
 
@@ -780,8 +855,13 @@ public class ReturnManagement extends javax.swing.JPanel {
                             JOptionPane.showMessageDialog(this, "Entered Quantity Greater Than Purchased Quantity", "Warning", JOptionPane.WARNING_MESSAGE);
                         } else {
 
+                            //Update Stock
                             double availableStock = Double.parseDouble(productResultSet.getString("available_qty"));
                             double UpdateStock = availableStock + getQty;
+
+                            //Update InvoiceItemQty
+                            double purchasedQty = Double.parseDouble(productResultSet.getString("invoice_item.qty"));
+                            double UpdateInvoiceQty = purchasedQty - getQty;
 
                             //Set time and date
                             LocalDateTime now = LocalDateTime.now();
@@ -791,6 +871,9 @@ public class ReturnManagement extends javax.swing.JPanel {
                             // Insert customer_return
                             MySQL.execute("INSERT INTO `customer_return` (`date_time`,`qty`,`invoice_item_init_id`) "
                                     + "VALUES ('" + formattedDateTime + "','" + getQty + "','" + getInvoiceId + "') ");
+
+                            //Update invoiceItemQty
+                            MySQL.execute("UPDATE `invoice_item` SET `qty`='" + UpdateInvoiceQty + "' WHERE `init_id`='" + getInvoiceId + "'");
 
                             //Update stock
                             MySQL.execute("UPDATE `stock` SET `available_qty`='" + UpdateStock + "' WHERE `barcode`='" + getStockId + "'");
@@ -818,7 +901,7 @@ public class ReturnManagement extends javax.swing.JPanel {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
 
-        String grnId = jFormattedTextField7.getText();
+        String grnId = jFormattedTextField10.getText();
         String grnitemId = jFormattedTextField6.getText();
         String productTitle = jTextField9.getText();
         String productColor = jTextField11.getText();
@@ -843,9 +926,7 @@ public class ReturnManagement extends javax.swing.JPanel {
             double getQty = Double.parseDouble(quantity);
             double getGrnitemId = Double.parseDouble(grnitemId);
             double getGrnId = Double.parseDouble(grnId);
-            System.out.println(getQty);
-            System.out.println(getGrnitemId);
-            System.out.println(getGrnId);
+
             if (getQty <= 0) {
                 JOptionPane.showMessageDialog(this, "Product Quanttiy Cant be 0 0r Negative", "Warning", JOptionPane.WARNING_MESSAGE);
 
@@ -871,6 +952,10 @@ public class ReturnManagement extends javax.swing.JPanel {
                             double availableStock = Double.parseDouble(grnResultSet.getString("available_qty"));
                             double UpdateStock = availableStock - getQty;
 
+                            //Update InvoiceItemQty
+                            double purchasedQty = Double.parseDouble(grnResultSet.getString("grn_item.qty"));
+                            double UpdateGrnQty = purchasedQty - getQty;
+
                             //Set date and time 
                             LocalDateTime now = LocalDateTime.now();
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -880,6 +965,9 @@ public class ReturnManagement extends javax.swing.JPanel {
                             MySQL.execute("INSERT INTO `supplier_return` (`date_time`,`qty`,`grn_item_id`) "
                                     + "VALUES ('" + formattedDateTime + "','" + getQty + "','" + getGrnitemId + "') ");
 
+                            //Update GRNItemQty
+                            MySQL.execute("UPDATE `grn_item` SET `qty`='" + UpdateGrnQty + "' WHERE `id`='" + getGrnitemId + "'");
+
                             //Stock Update
                             double sbarcode = Double.parseDouble(grnResultSet.getString("stock.barcode"));
                             MySQL.execute("UPDATE `stock` SET `available_qty`='" + UpdateStock + "' WHERE `stock`.`barcode`='" + sbarcode + "'");
@@ -887,7 +975,7 @@ public class ReturnManagement extends javax.swing.JPanel {
                             JOptionPane.showMessageDialog(this, "Product Returned Succesfully", "Information", JOptionPane.INFORMATION_MESSAGE);
 
                             jFormattedTextField6.setEditable(true);
-                            jFormattedTextField7.setEditable(true);
+                            jFormattedTextField10.setEditable(true);
                             jTextField9.setEditable(true);
                             jFormattedTextField8.setEditable(true);
                             jTextField11.setEditable(true);
@@ -918,9 +1006,12 @@ public class ReturnManagement extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
 
+        String inid = jFormattedTextField9.getText();
+
         invoiceItemView invoiceItem = new invoiceItemView();
         invoiceItem.setVisible(true);
         invoiceItem.setreturnManagement(this);
+        invoiceItem.loadInvoiceItemProduct(inid);
 
         jFormattedTextField3.setEditable(false);
         jFormattedTextField1.setEditable(false);
@@ -942,13 +1033,15 @@ public class ReturnManagement extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        String grnbarcode = jFormattedTextField10.getText();
 
         grnItemView grnItem = new grnItemView();
         grnItem.setVisible(true);
         grnItem.setreturnManagement(this);
+        grnItem.loadSupplierReturns(grnbarcode);
 
         jFormattedTextField6.setEditable(false);
-        jFormattedTextField7.setEditable(false);
+        jFormattedTextField10.setEditable(false);
         jTextField9.setEditable(false);
         jFormattedTextField8.setEditable(false);
         jTextField11.setEditable(false);
@@ -1063,6 +1156,30 @@ public class ReturnManagement extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jTextField8KeyReleased
 
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+
+        invoiceView invoiceView = new invoiceView();
+        invoiceView.setVisible(true);
+        invoiceView.setreturnManagement(this);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton7KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton7KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7KeyPressed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        grnView grn = new grnView();
+        grn.setVisible(true);
+        grn.setreturnManagement(this);
+
+    }//GEN-LAST:event_jButton8ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -1071,14 +1188,17 @@ public class ReturnManagement extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField10;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JFormattedTextField jFormattedTextField4;
     private javax.swing.JFormattedTextField jFormattedTextField5;
     private javax.swing.JFormattedTextField jFormattedTextField6;
-    private javax.swing.JFormattedTextField jFormattedTextField7;
     private javax.swing.JFormattedTextField jFormattedTextField8;
+    private javax.swing.JFormattedTextField jFormattedTextField9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1088,11 +1208,12 @@ public class ReturnManagement extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
