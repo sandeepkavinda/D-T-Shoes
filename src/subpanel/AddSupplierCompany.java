@@ -236,6 +236,7 @@ public class AddSupplierCompany extends javax.swing.JFrame {
         if (evt.getClickCount() == 2 && selectedRow != -1) {
             SupplierManagement.getJTextField3().setText(String.valueOf(jTable1.getValueAt(selectedRow, 1)));
             SupplierManagement.setEnabled(true);
+            SupplierManagement.setSelectedCompanyId(String.valueOf(jTable1.getValueAt(selectedRow, 0)));
             this.dispose();
         }
     }//GEN-LAST:event_jTable1MouseClicked

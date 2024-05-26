@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.text.DecimalFormat;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
@@ -17,6 +18,7 @@ import subpanel.CompanySetting;
 
 public class Dashboard extends javax.swing.JFrame {
     
+    public static final DecimalFormat FORMAT = new DecimalFormat("#0.00");
     public static final Color PRIMARYCOLOR = new Color(0, 117, 105);
     public static UserBean userBean;
     
