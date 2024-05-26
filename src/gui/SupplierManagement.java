@@ -20,6 +20,7 @@ public class SupplierManagement extends javax.swing.JPanel {
         loadSuppliers();
         loadCompanyMap();
         loadPendingPayments();
+        loadSettledPayments();
         JTable[] jt = {jTable1, jTable2, jTable3};
         Dashboard.editTable(jt);
         jTextField3.setEditable(false);
@@ -348,11 +349,6 @@ public class SupplierManagement extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable2MouseClicked(evt);
-            }
-        });
         jScrollPane2.setViewportView(jTable2);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -360,13 +356,23 @@ public class SupplierManagement extends javax.swing.JPanel {
         jLabel11.setText("Search User");
 
         jTextField7.setPreferredSize(new java.awt.Dimension(249, 35));
+        jTextField7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField7KeyReleased(evt);
+            }
+        });
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/glass.png"))); // NOI18N
 
         jLabel13.setText("Sort By");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Name Ascending", "Name Descending ", "Pending Amount - LOW to HIGH", "Pending Amount - HIGH to LOW " }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Name Ascending", "Name Descending " }));
         jComboBox2.setPreferredSize(new java.awt.Dimension(61, 35));
+        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox2ItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -448,7 +454,7 @@ public class SupplierManagement extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Supplier Name", "Company", "Username", "Settled Amount"
+                "Mobile", "First Name", "Last Name", "Company", "Amount"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -460,26 +466,29 @@ public class SupplierManagement extends javax.swing.JPanel {
             }
         });
         jScrollPane3.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setResizable(false);
-            jTable3.getColumnModel().getColumn(1).setResizable(false);
-            jTable3.getColumnModel().getColumn(2).setResizable(false);
-            jTable3.getColumnModel().getColumn(3).setResizable(false);
-            jTable3.getColumnModel().getColumn(4).setResizable(false);
-        }
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel14.setText("Search User");
 
         jTextField8.setPreferredSize(new java.awt.Dimension(249, 35));
+        jTextField8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField8KeyReleased(evt);
+            }
+        });
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/glass.png"))); // NOI18N
 
         jLabel16.setText("Sort By");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Name Ascending", "Name Descending ", "Pending Amount - LOW to HIGH", "Pending Amount - HIGH to LOW " }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Name Ascending", "Name Descending " }));
         jComboBox3.setPreferredSize(new java.awt.Dimension(61, 35));
+        jComboBox3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox3ItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -603,6 +612,11 @@ public class SupplierManagement extends javax.swing.JPanel {
         return this.selectedCompanyId;
     }
 
+    private String getSupplierCompanyIdInMobile(String mobile) {
+        String company_id = String.valueOf(companyMap.get(mobile));
+        return company_id;
+    }
+
     private void loadSuppliers() {
 
         String searchText = jTextField6.getText();
@@ -660,8 +674,20 @@ public class SupplierManagement extends javax.swing.JPanel {
         int orderIndex = jComboBox2.getSelectedIndex();
 
         try {
+            String orderType;
+            if (orderIndex == 0) {
+                orderType = "ASC";
+            } else {
+                orderType = "DESC";
+            }
+
             ResultSet resultSet = MySQL.execute("SELECT * FROM `supplier` "
-                    + "INNER JOIN `company` ON `supplier`.`company_id`=`company`.`id`");
+                    + "INNER JOIN `company` ON `supplier`.`company_id`=`company`.`id`"
+                    + "WHERE `mobile` LIKE '%" + searchText + "%' "
+                    + "OR `fname` LIKE '%" + searchText + "%' "
+                    + "OR `lname` LIKE '%" + searchText + "%' "
+                    + "OR `company_name` LIKE '" + searchText + "' "
+                    + "ORDER BY `fname` " + orderType + "");
 
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
             model.setRowCount(0);
@@ -676,25 +702,24 @@ public class SupplierManagement extends javax.swing.JPanel {
                 double fullAmount = 0;
                 double paidAmount = 0;
 
-                while(resultSet2.next()){
-                     String grnBarcode = resultSet2.getString("barcode");
-                     
-                     ResultSet resultSet3 = MySQL.execute("SELECT * FROM `grn_item` "
-                        + "WHERE `grn_barcode`='"+grnBarcode+"' ");
-                     
-                     while(resultSet3.next()){
-                         Double buyingPrice = Double.parseDouble(resultSet3.getString("buying_price"));
-                         int qty = Integer.parseInt(resultSet3.getString("qty"));
-                         Double grnItemTotal = buyingPrice*qty;
-                         fullAmount = fullAmount + grnItemTotal;
-                     }
-                    
+                while (resultSet2.next()) {
+                    String grnBarcode = resultSet2.getString("barcode");
+
+                    ResultSet resultSet3 = MySQL.execute("SELECT * FROM `grn_item` "
+                            + "WHERE `grn_barcode`='" + grnBarcode + "' ");
+
+                    while (resultSet3.next()) {
+                        Double buyingPrice = Double.parseDouble(resultSet3.getString("buying_price"));
+                        int qty = Integer.parseInt(resultSet3.getString("qty"));
+                        Double grnItemTotal = buyingPrice * qty;
+                        fullAmount = fullAmount + grnItemTotal;
+                    }
                     paidAmount = paidAmount + Double.parseDouble(resultSet2.getString("total"));
                 }
-                
-                double pendingAmount = fullAmount-paidAmount;
 
-                if (pendingAmount>0) {
+                double pendingAmount = fullAmount - paidAmount;
+
+                if (pendingAmount > 0) {
                     Vector vector = new Vector();
                     vector.add(resultSet.getString("mobile"));
                     vector.add(resultSet.getString("fname"));
@@ -706,18 +731,74 @@ public class SupplierManagement extends javax.swing.JPanel {
                     model.addRow(vector);
                     jTable2.setModel(model);
                 }
-
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+    
+    private void loadSettledPayments(){
+        String searchText = jTextField8.getText();
+        int orderIndex = jComboBox3.getSelectedIndex();
 
-    private String getSupplierCompanyIdInMobile(String mobile) {
-        String company_id = String.valueOf(companyMap.get(mobile));
-        return company_id;
+        try {
+            String orderType;
+            if (orderIndex == 0) {
+                orderType = "ASC";
+            } else {
+                orderType = "DESC";
+            }
+
+            ResultSet resultSet = MySQL.execute("SELECT * FROM `supplier` "
+                    + "INNER JOIN `company` ON `supplier`.`company_id`=`company`.`id`"
+                    + "WHERE `mobile` LIKE '%" + searchText + "%' "
+                    + "OR `fname` LIKE '%" + searchText + "%' "
+                    + "OR `lname` LIKE '%" + searchText + "%' "
+                    + "OR `company_name` LIKE '" + searchText + "' "
+                    + "ORDER BY `fname` " + orderType + "");
+
+            DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+            model.setRowCount(0);
+
+            while (resultSet.next()) {
+
+                String mobile = resultSet.getString("mobile");
+
+                ResultSet resultSet2 = MySQL.execute("SELECT * FROM `grn` WHERE `supplier_mobile`='" + mobile + "'");
+
+                double fullAmount = 0;
+                double paidAmount = 0;
+
+                while (resultSet2.next()) {
+                    String grnBarcode = resultSet2.getString("barcode");
+
+                    ResultSet resultSet3 = MySQL.execute("SELECT * FROM `grn_item` WHERE `grn_barcode`='" + grnBarcode + "' ");
+
+                    while (resultSet3.next()) {
+                        Double buyingPrice = Double.parseDouble(resultSet3.getString("buying_price"));
+                        int qty = Integer.parseInt(resultSet3.getString("qty"));
+                        Double grnItemTotal = buyingPrice * qty;
+                        fullAmount = fullAmount + grnItemTotal;
+                    }
+                    paidAmount = paidAmount + Double.parseDouble(resultSet2.getString("total"));
+                }
+
+                double pendingAmount = fullAmount - paidAmount;
+
+                if (pendingAmount == 0.0 && fullAmount!=0.0) {
+                    Vector vector = new Vector();
+                    vector.add(resultSet.getString("mobile"));
+                    vector.add(resultSet.getString("fname"));
+                    vector.add(resultSet.getString("lname"));
+                    vector.add(resultSet.getString("company_name"));
+                    vector.add(Dashboard.FORMAT.format(fullAmount));
+                    model.addRow(vector);
+                    jTable3.setModel(model);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -852,10 +933,25 @@ public class SupplierManagement extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+    private void jTextField7KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyReleased
         // TODO add your handling code here:
-        System.out.println(jTable2.getValueAt(0, 4));
-    }//GEN-LAST:event_jTable2MouseClicked
+        loadPendingPayments();
+    }//GEN-LAST:event_jTextField7KeyReleased
+
+    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+        // TODO add your handling code here:
+        loadPendingPayments();
+    }//GEN-LAST:event_jComboBox2ItemStateChanged
+
+    private void jTextField8KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyReleased
+        // TODO add your handling code here:
+        loadSettledPayments();
+    }//GEN-LAST:event_jTextField8KeyReleased
+
+    private void jComboBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox3ItemStateChanged
+        // TODO add your handling code here:
+        loadSettledPayments();
+    }//GEN-LAST:event_jComboBox3ItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -18,7 +18,7 @@ import subpanel.CompanySetting;
 
 public class Dashboard extends javax.swing.JFrame {
     
-    public static final DecimalFormat FORMAT = new DecimalFormat("#.00");
+    public static final DecimalFormat FORMAT = new DecimalFormat("#0.00");
     public static final Color PRIMARYCOLOR = new Color(0, 117, 105);
     public static UserBean userBean;
     
