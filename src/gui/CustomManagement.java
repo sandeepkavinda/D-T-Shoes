@@ -192,7 +192,7 @@ public class CustomManagement extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Customer Mobile", "Description", "Total Amount", "Advance Payment"
+                "Customer Mobile", "Description", "Total Amount", "Advanced Payment"
             }
         ) {
             boolean[] canEdit = new boolean [] {

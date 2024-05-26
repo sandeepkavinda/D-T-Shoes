@@ -69,9 +69,12 @@ public class SignIn extends javax.swing.JFrame {
 
         jLabel3.setText("Username");
 
+        jTextField1.setText("ab");
         jTextField1.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jLabel4.setText("Password");
+
+        jPasswordField1.setText("123");
 
         jButton2.setBackground(new java.awt.Color(27, 49, 77));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

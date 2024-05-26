@@ -1,6 +1,11 @@
 package gui;
 
+import java.sql.ResultSet;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.MySQL;
 
 public class CustomerManagement extends javax.swing.JPanel {
 
@@ -8,6 +13,39 @@ public class CustomerManagement extends javax.swing.JPanel {
         initComponents();
         JTable[] jt = {jTable1};
         Dashboard.editTable(jt);
+        loadCustomerTable("SELECT * FROM `customer`");
+    }
+
+    private void resetCustomerPanel() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTable1.setEnabled(true);
+        jTextField3.setEditable(true);
+        jTextField6.setEnabled(true);
+        jButton1.setEnabled(true);
+        jButton2.setEnabled(false);
+        jTextField6.setText("");
+    }
+
+    private void loadCustomerTable(String query) {
+
+        try {
+            ResultSet results = MySQL.execute(query);
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            while (results.next()) {
+                Vector v = new Vector();
+                v.add(results.getString("mobile"));
+                v.add(results.getString("fname"));
+                v.add(results.getString("lname"));
+                model.addRow(v);
+            }
+        } catch (Exception e) {
+            SignIn.log1.warning(e.toString());
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -77,16 +115,32 @@ public class CustomerManagement extends javax.swing.JPanel {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jButton1.setText("Save Customer");
         jButton1.setPreferredSize(new java.awt.Dimension(79, 35));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(0, 117, 105));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jButton2.setText("Update Customer");
+        jButton2.setEnabled(false);
         jButton2.setPreferredSize(new java.awt.Dimension(79, 35));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(118, 48, 129));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jButton4.setText("Clear All");
         jButton4.setPreferredSize(new java.awt.Dimension(79, 35));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -103,7 +157,7 @@ public class CustomerManagement extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -138,6 +192,11 @@ public class CustomerManagement extends javax.swing.JPanel {
         jLabel8.setText("Search User");
 
         jTextField6.setPreferredSize(new java.awt.Dimension(249, 35));
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/glass.png"))); // NOI18N
 
@@ -172,11 +231,11 @@ public class CustomerManagement extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mobile", "First Name", "Last Name", "Customer Points"
+                "Mobile", "First Name", "Last Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -184,10 +243,12 @@ public class CustomerManagement extends javax.swing.JPanel {
             }
         });
         jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -217,6 +278,106 @@ public class CustomerManagement extends javax.swing.JPanel {
                         .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        String text = jTextField6.getText();
+        loadCustomerTable("SELECT * FROM `customer` WHERE `mobile` LIKE '" + text + "%' OR `fname` LIKE '" + text + "%' OR `lname` LIKE '" + text + "%'");
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        String fname = jTextField1.getText();
+        String lname = jTextField2.getText();
+        String mobile = jTextField3.getText();
+
+        if (fname.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "First name is empty", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (fname.length() > 40) {
+            JOptionPane.showMessageDialog(this, "First name should be less than 40 characters", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (lname.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Last name is empty", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (lname.length() > 40) {
+            JOptionPane.showMessageDialog(this, "Last name should be less than 40 characters", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (mobile.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mobile is empty", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (!mobile.matches("^07[01245678]{1}[0-9]{7}$")) {
+            JOptionPane.showMessageDialog(this, "Invalid mobile number", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+
+            try {
+
+                ResultSet results = MySQL.execute("SELECT * FROM `customer` WHERE `mobile`='" + mobile + "'");
+                if (results.next()) {
+                    JOptionPane.showMessageDialog(this, "Mobile number already exists", "Warning", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    MySQL.execute("INSERT INTO `customer` (`mobile`,`fname`,`lname`) VALUES ('" + mobile + "','" + fname + "','" + lname + "')");
+                    loadCustomerTable("SELECT * FROM `customer`");
+                    resetCustomerPanel();
+                    JOptionPane.showMessageDialog(this, "Customer added successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            } catch (Exception e) {
+                SignIn.log1.warning(e.toString());
+            }
+
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (evt.getClickCount() == 2 && selectedRow != -1) {
+
+            jTextField1.setText(String.valueOf(jTable1.getValueAt(selectedRow, 1)));
+            jTextField2.setText(String.valueOf(jTable1.getValueAt(selectedRow, 2)));
+            jTextField3.setText(String.valueOf(jTable1.getValueAt(selectedRow, 0)));
+
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(true);
+            jTextField6.setEnabled(false);
+            jTable1.setEnabled(false);
+            jTextField3.setEditable(false);
+        }
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        String fname = jTextField1.getText();
+        String lname = jTextField2.getText();
+        String mobile = jTextField3.getText();
+
+        if (fname.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "First name is empty", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (fname.length() > 40) {
+            JOptionPane.showMessageDialog(this, "First name should be less than 40 characters", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (lname.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Last name is empty", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (lname.length() > 40) {
+            JOptionPane.showMessageDialog(this, "Last name should be less than 40 characters", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+
+            try {
+
+                MySQL.execute("UPDATE `customer` SET `fname`='" + fname + "', `lname`='" + lname + "' WHERE `mobile`='" + mobile + "'");
+                loadCustomerTable("SELECT * FROM `customer`");
+                resetCustomerPanel();
+                JOptionPane.showMessageDialog(this, "Customer updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception e) {
+                SignIn.log1.warning(e.toString());
+            }
+
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        resetCustomerPanel();
+        loadCustomerTable("SELECT * FROM `customer`");
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -132,7 +132,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jPanel3" pref="649" max="32767" attributes="0"/>
+                  <Component id="jPanel3" pref="647" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -327,6 +327,7 @@
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField3">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[69, 35]"/>
                     </Property>
@@ -525,7 +526,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel5" pref="649" max="32767" attributes="0"/>
+                  <Component id="jPanel5" pref="647" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -714,6 +715,7 @@
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField6">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[69, 35]"/>
                     </Property>

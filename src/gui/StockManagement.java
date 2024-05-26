@@ -596,7 +596,7 @@ public class StockManagement extends javax.swing.JPanel {
         if (fromvalue.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter From Value", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (tovalue.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter From Value", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please Enter To Value", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
                 ResultSet buyingPricers = MySQL.execute("SELECT * FROM `stock` INNER JOIN `product`\n"
@@ -661,7 +661,7 @@ public class StockManagement extends javax.swing.JPanel {
         if (fromqty.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter From Value", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (toqty.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter From Value", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please Enter To Value", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
                 ResultSet buyingPricers = MySQL.execute("SELECT * FROM `stock` INNER JOIN `product`\n"

@@ -79,17 +79,16 @@ public class ReturnManagement extends javax.swing.JPanel {
 
         try {
             ResultSet customerReturnResultSet = MySQL.execute("SELECT * FROM `customer_return` INNER JOIN `invoice_item`\n"
-                    + "ON `customer_return`.`invoice_item_init_id = `invoice_item`.`init_id`\n"
+                    + "ON `customer_return`.`invoice_item_init_id` = `invoice_item`.`init_id`\n"
                     + "INNER JOIN `invoice`\n"
-                    + "ON `invoice`.`in_id`= `invoice_item`.`in_id`\n"
+                    + "ON `invoice`.`in_id`= `invoice_item`.`init_id`\n"
                     + "INNER JOIN `stock`\n"
                     + "ON `stock`.`barcode` = `invoice_item`.`st_barcode`\n"
                     + "INNER JOIN `size`\n"
                     + "ON `size`.`s_id` = `stock`.`s_id`\n"
                     + "INNER JOIN `color`\n"
                     + "ON `color`.`co_id` = `stock`.`co_id`\n"
-                    + "INNER JOIN `product` \n"
-                    + "ON `product`.p_id = `stock`.`p_id`");
+                    + "INNER JOIN `product` ON `product`.p_id = `stock`.`p_id`");
 
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
@@ -316,6 +315,7 @@ public class ReturnManagement extends javax.swing.JPanel {
 
         jFormattedTextField2.setPreferredSize(new java.awt.Dimension(69, 35));
 
+        jFormattedTextField3.setEditable(false);
         jFormattedTextField3.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jFormattedTextField4.setPreferredSize(new java.awt.Dimension(69, 35));
@@ -540,6 +540,7 @@ public class ReturnManagement extends javax.swing.JPanel {
 
         jFormattedTextField5.setPreferredSize(new java.awt.Dimension(69, 35));
 
+        jFormattedTextField6.setEditable(false);
         jFormattedTextField6.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jFormattedTextField8.setPreferredSize(new java.awt.Dimension(69, 35));
@@ -741,6 +742,7 @@ public class ReturnManagement extends javax.swing.JPanel {
         String productSize = jFormattedTextField2.getText();
         String quantity = jFormattedTextField4.getText();
 
+        
         //customer return validation
         if (invoiceId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Invoice Item Id", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -753,6 +755,8 @@ public class ReturnManagement extends javax.swing.JPanel {
         } else if (productSize.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Product Size", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (quantity.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Product Quantity", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (quantity.matches(quantity)) {
             JOptionPane.showMessageDialog(this, "Please Enter Product Quantity", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
 
@@ -791,8 +795,9 @@ public class ReturnManagement extends javax.swing.JPanel {
                             //Update stock
                             MySQL.execute("UPDATE `stock` SET `available_qty`='" + UpdateStock + "' WHERE `barcode`='" + getStockId + "'");
                             loadCustomerReturns();
-                            JOptionPane.showMessageDialog(this, "Product Returned Succesfully", "Warning", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "Product Returned Succesfully", "Information", JOptionPane.INFORMATION_MESSAGE);
 
+                            jFormattedTextField3.setEditable(true);
                             jFormattedTextField1.setEditable(true);
                             jTextField3.setEditable(true);
                             jTextField10.setEditable(true);
@@ -838,18 +843,24 @@ public class ReturnManagement extends javax.swing.JPanel {
             double getQty = Double.parseDouble(quantity);
             double getGrnitemId = Double.parseDouble(grnitemId);
             double getGrnId = Double.parseDouble(grnId);
-
+            System.out.println(getQty);
+            System.out.println(getGrnitemId);
+            System.out.println(getGrnId);
             if (getQty <= 0) {
                 JOptionPane.showMessageDialog(this, "Product Quanttiy Cant be 0 0r Negative", "Warning", JOptionPane.WARNING_MESSAGE);
+
             } else {
 
                 try {
                     //Suplier return Query
-                    ResultSet grnResultSet = MySQL.execute("SELECT * FROM `grn_item` "
-                            + "INNER JOIN `grn` ON `grn`.`barcode`=`grn_item`.`grn_barcode` "
-                            + "INNER JOIN `product` ON `grn_item`.`product_p_id`=`product`.`p_id` "
-                            + "INNER JOIN `stock` ON `stock`.`p_id` = `product`.`p_id`"
-                            + " WHERE `grn`.`barcode`='" + getGrnId + "' AND `id`='" + getGrnitemId + "'");
+                    ResultSet grnResultSet = MySQL.execute("SELECT * FROM `grn_item`\n"
+                            + "INNER JOIN `grn` \n"
+                            + "ON `grn`.`barcode`=`grn_item`.`grn_barcode`\n"
+                            + "INNER JOIN `product` \n"
+                            + "ON `grn_item`.`product_p_id`=`product`.`p_id` \n"
+                            + "INNER JOIN `stock` \n"
+                            + "ON `stock`.`p_id` = `product`.`p_id`\n"
+                            + "WHERE `grn`.`barcode`='" + getGrnId + "' AND `id`='" + getGrnitemId + "'");
 
                     if (grnResultSet.next()) {
                         double dbQuantity = Double.parseDouble(grnResultSet.getString("grn_item.qty"));
@@ -873,8 +884,9 @@ public class ReturnManagement extends javax.swing.JPanel {
                             double sbarcode = Double.parseDouble(grnResultSet.getString("stock.barcode"));
                             MySQL.execute("UPDATE `stock` SET `available_qty`='" + UpdateStock + "' WHERE `stock`.`barcode`='" + sbarcode + "'");
                             loadSupplierReturns();
-                            JOptionPane.showMessageDialog(this, "Product Returned Succesfully", "Warning", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "Product Returned Succesfully", "Information", JOptionPane.INFORMATION_MESSAGE);
 
+                            jFormattedTextField6.setEditable(true);
                             jFormattedTextField7.setEditable(true);
                             jTextField9.setEditable(true);
                             jFormattedTextField8.setEditable(true);
@@ -910,6 +922,7 @@ public class ReturnManagement extends javax.swing.JPanel {
         invoiceItem.setVisible(true);
         invoiceItem.setreturnManagement(this);
 
+        jFormattedTextField3.setEditable(false);
         jFormattedTextField1.setEditable(false);
         jTextField3.setEditable(false);
         jTextField10.setEditable(false);
@@ -934,6 +947,7 @@ public class ReturnManagement extends javax.swing.JPanel {
         grnItem.setVisible(true);
         grnItem.setreturnManagement(this);
 
+        jFormattedTextField6.setEditable(false);
         jFormattedTextField7.setEditable(false);
         jTextField9.setEditable(false);
         jFormattedTextField8.setEditable(false);

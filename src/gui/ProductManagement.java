@@ -142,14 +142,14 @@ public class ProductManagement extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        kGradientPanel2.setToolTipText("Title Bar");
+        kGradientPanel2.setToolTipText("Product Management");
         kGradientPanel2.setkBorderRadius(0);
         kGradientPanel2.setkEndColor(new java.awt.Color(27, 49, 77));
         kGradientPanel2.setkStartColor(new java.awt.Color(0, 117, 105));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/user (8).png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/box (2).png"))); // NOI18N
         jLabel1.setText("Product Management");
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jLabel1.setIconTextGap(10);
@@ -449,7 +449,7 @@ public class ProductManagement extends javax.swing.JPanel {
                     
                         MySQL.execute("INSERT INTO `product` (`title`,`b_id`,`c_id`) "
                             + "VALUES ('" + productTitle + "','" + brandId + "','" + categoryId + "')");
-                        JOptionPane.showMessageDialog(this, "Add Product", "warning", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Product added successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
 
                         loadProductTable();
                         
@@ -494,9 +494,11 @@ public class ProductManagement extends javax.swing.JPanel {
                              + "`c_id`='" + categoryId + "'"
                              + " WHERE `p_id` = '" + productId + "'");
                         
-                        JOptionPane.showMessageDialog(this, "Add Product", "warning", JOptionPane.WARNING_MESSAGE);
-
                         loadProductTable();
+                        resetProductButton();
+                        
+                        JOptionPane.showMessageDialog(this, "Product updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+
                         
                 }
             } catch (Exception e) {

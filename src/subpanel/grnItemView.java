@@ -254,9 +254,9 @@ public class grnItemView extends javax.swing.JFrame {
 
         if (evt.getClickCount() == 2) {
             if (returnManagement != null) {
-                returnManagement.getjFormattedTextField6().setText(String.valueOf(jTable4.getValueAt(row, 1)));
+                returnManagement.getjFormattedTextField6().setText(String.valueOf(jTable4.getValueAt(row, 0)));
                 returnManagement.getjTextField9().setText(String.valueOf(jTable4.getValueAt(row, 2)));
-                returnManagement.getjFormattedTextField7().setText(String.valueOf(jTable4.getValueAt(row, 0)));
+                returnManagement.getjFormattedTextField7().setText(String.valueOf(jTable4.getValueAt(row, 1)));
                 returnManagement.getjTextField11().setText(String.valueOf(jTable4.getValueAt(row, 4)));
                 returnManagement.getjFormattedTextField8().setText(String.valueOf(jTable4.getValueAt(row, 3)));
                 this.dispose();
