@@ -9,9 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import model.MySQL;
 
 public class CategorySetting extends javax.swing.JDialog {
-
+    
     Dashboard dashboard;
-
+    
     public CategorySetting(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -20,7 +20,7 @@ public class CategorySetting extends javax.swing.JDialog {
                 + "INNER JOIN `main_category` ON `category`.`mc_id`=`main_category`.`mc_id`"
                 + "INNER JOIN `sub_category` ON `category`.`sc_id` = `sub_category`.`sc_id`");
     }
-
+    
     private void loadCategoryTable(String query) {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -33,12 +33,12 @@ public class CategorySetting extends javax.swing.JDialog {
                 v.add(results.getString("sc_name"));
                 model.addRow(v);
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
     private void resetCompanySetting() {
         jButton1.setEnabled(true);
         jButton2.setEnabled(false);
@@ -47,7 +47,7 @@ public class CategorySetting extends javax.swing.JDialog {
         jTextField2.setEnabled(true);
         jTable1.setEnabled(true);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -220,7 +220,7 @@ public class CategorySetting extends javax.swing.JDialog {
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -243,7 +243,9 @@ public class CategorySetting extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -257,7 +259,7 @@ public class CategorySetting extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-
+        
         if (evt.getClickCount() == 2 && jTable1.getSelectedRow() != -1) {
             jTextField1.setText(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1)));
             jTextField3.setText(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2)));
@@ -273,14 +275,14 @@ public class CategorySetting extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        
         int selectedRow = jTable1.getSelectedRow();
-
+        
         if (selectedRow != -1) {
-
+            
             String mc = jTextField1.getText();
             String sc = jTextField3.getText();
-
+            
             if (mc.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Main category is empty",
                         "Warning", JOptionPane.WARNING_MESSAGE);
@@ -314,10 +316,10 @@ public class CategorySetting extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
         String mc = jTextField1.getText();
         String sc = jTextField3.getText();
-
+        
         if (mc.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Main Category name is empty", "Warning",
                     JOptionPane.WARNING_MESSAGE);
@@ -330,6 +332,12 @@ public class CategorySetting extends javax.swing.JDialog {
                         + "INNER JOIN `main_category` ON `category`.`mc_id`=`main_category`.`mc_id`"
                         + "INNER JOIN `sub_category` ON `category`.`sc_id` = `sub_category`.`sc_id` "
                         + "WHERE `mc_name`='" + mc + "' AND `sc_name`= '" + sc + "'");
+                
+                ResultSet mcResult = MySQL.execute("SELECT * FROM `main_category` WHERE `mc_name`='" + mc + "'");
+                ResultSet scResult = MySQL.execute("SELECT * FROM `sub_category` WHERE `sc_name`='" + sc + "'");
+                
+                
+                
                 if (results.next()) {
                     JOptionPane.showMessageDialog(this, "Category already exists",
                             "Warning", JOptionPane.WARNING_MESSAGE);
