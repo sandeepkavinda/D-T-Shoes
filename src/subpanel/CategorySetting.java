@@ -340,7 +340,7 @@ public class CategorySetting extends javax.swing.JDialog {
                     loadCategoryTable("SELECT * FROM `category` "
                             + "INNER JOIN `main_category` ON `category`.`mc_id`=`main_category`.`mc_id`"
                             + "INNER JOIN `sub_category` ON `category`.`sc_id` = `sub_category`.`sc_id``");
-                    JOptionPane.showMessageDialog(this, "Company added successfully",
+                    JOptionPane.showMessageDialog(this, "Category added successfully",
                             "Information", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception e) {
