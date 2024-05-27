@@ -13,6 +13,7 @@ public class SignIn extends javax.swing.JFrame {
 
     public static Logger log1;
     public static FileHandler handler;
+    public static UserBean userBean;
 
     static {
         try {
@@ -198,7 +199,7 @@ public class SignIn extends javax.swing.JFrame {
 
                 if (resultSet.next()) {
                     if (resultSet.getString("status.status").equals("Active")) {
-                        UserBean userBean = new UserBean();
+                        userBean = new UserBean();
                         userBean.setId(resultSet.getInt("id"));
                         userBean.setFname(resultSet.getString("fname"));
                         userBean.setLname(resultSet.getString("lname"));
