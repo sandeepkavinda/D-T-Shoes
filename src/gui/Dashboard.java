@@ -17,6 +17,7 @@ import subpanel.ColorSetting;
 import subpanel.CompanySetting;
 import subpanel.SizeSettiing;
 import subpanel.CategorySetting;
+import subpanel.LowStock;
 
 public class Dashboard extends javax.swing.JFrame {
 
@@ -518,6 +519,11 @@ public class Dashboard extends javax.swing.JFrame {
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jButton1.setPreferredSize(new java.awt.Dimension(139, 30));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/glass.png"))); // NOI18N
 
@@ -560,8 +566,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1281, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
@@ -853,6 +858,10 @@ public class Dashboard extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         new CategorySetting(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new LowStock(this, true).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
 

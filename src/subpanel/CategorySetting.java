@@ -3,6 +3,7 @@ package subpanel;
 import gui.Dashboard;
 import gui.SignIn;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -12,6 +13,8 @@ import model.MySQL;
 public class CategorySetting extends javax.swing.JDialog {
 
     Dashboard dashboard;
+    private HashMap<String, String> mainCategoryMap = new HashMap<>();
+    private HashMap<String, String> subCategoryMap = new HashMap<>();
 
     public CategorySetting(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -56,6 +59,7 @@ public class CategorySetting extends javax.swing.JDialog {
 
             while (resultSet.next()) {
                 v.add(resultSet.getString("mc_name"));
+                mainCategoryMap.put(resultSet.getString("mc_name"), resultSet.getString("mc_id"));
 
             }
 
@@ -79,6 +83,7 @@ public class CategorySetting extends javax.swing.JDialog {
 
             while (resultSet.next()) {
                 v.add(resultSet.getString("sc_name"));
+                subCategoryMap.put(resultSet.getString("sc_name"), resultSet.getString("sc_id"));
 
             }
 
@@ -733,19 +738,8 @@ public class CategorySetting extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Category already exists",
                             "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    String mc_id = "";
-                    String sc_id = "";
 
-                    ResultSet resultSet = MySQL.execute("SELECT * FROM `main_category` WHERE `mc_name`='" + mc + "' ");
-                    ResultSet resultSet2 = MySQL.execute("SELECT * FROM `sub_category` WHERE `sc_name`='" + sc + "' ");
-                    if (resultSet.next()) {
-                        mc_id = resultSet.getString("mc_id");
-                        if (resultSet2.next()) {
-                            sc_id = resultSet2.getString("sc_id");
-                        }
-                    }
-
-                    MySQL.execute("INSERT INTO `category` (`mc_id`,`sc_id`) VALUES ('" + mc_id + "','" + sc_id + "')");
+                    MySQL.execute("INSERT INTO `category` (`mc_id`,`sc_id`) VALUES ('" + mainCategoryMap.get(mc) + "','" + subCategoryMap.get(sc) + "')");
                     resetCategorySetting();
                     loadCategoryTable("SELECT * FROM `category` "
                             + "INNER JOIN `main_category` ON `category`.`mc_id`=`main_category`.`mc_id`"
@@ -761,13 +755,6 @@ public class CategorySetting extends javax.swing.JDialog {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
-//        if (evt.getClickCount() == 2 && jTable1.getSelectedRow() != -1) {
-//            jTextField1.setText(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1)));
-//            jTextField3.setText(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2)));
-//            jTable1.setEnabled(false);
-//
-//            jTextField2.setEnabled(false);
-//        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
