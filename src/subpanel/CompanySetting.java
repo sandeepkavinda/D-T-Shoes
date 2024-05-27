@@ -288,7 +288,7 @@ public class CompanySetting extends javax.swing.JDialog {
             } else {
                 try {
                     ResultSet results = MySQL.execute("SELECT * FROM `company`  "
-                            + "WHERE `company_name`='" + companyName + "' AND `contact_no` = '"+contact+"' ");
+                            + "WHERE `company_name`='" + companyName + "' AND `contact_no` = '" + contact + "' ");
                     if (results.next()) {
                         JOptionPane.showMessageDialog(this, "Company already exists",
                                 "Warning", JOptionPane.WARNING_MESSAGE);
@@ -320,6 +320,9 @@ public class CompanySetting extends javax.swing.JDialog {
         } else if (contact.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter contact Number",
                     "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (!contact.matches("^07[01245678]{1}[0-9]{7}$")) {
+            JOptionPane.showMessageDialog(this, "Invalid contact number!",
+                    "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
                 ResultSet results = MySQL.execute("SELECT * FROM `company` "

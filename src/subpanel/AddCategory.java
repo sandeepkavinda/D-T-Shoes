@@ -236,16 +236,12 @@ public class AddCategory extends javax.swing.JFrame {
             productManagement.getJTextField9().setText(String.valueOf(jTable1.getValueAt(selectedRow, 2)));
             productManagement.setEnabled(true);
             this.dispose();
-            
-            String subId = String.valueOf(jTable1.getValueAt(selectedRow, 0));
-            productManagement.getSubId(subId);
         }
 
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         // TODO add your handling code here:
-
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
@@ -254,8 +250,7 @@ public class AddCategory extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-
+        // TODO add your handling code here:\
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**

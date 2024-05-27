@@ -1,9 +1,7 @@
 package gui;
 
 import java.sql.ResultSet;
-import java.util.HashMap;
 import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -15,8 +13,6 @@ import subpanel.AddCategory;
 public class ProductManagement extends javax.swing.JPanel {
 
     public String brandId;//
-    public String mainId;//
-    public String subId;//
     
     public ProductManagement() {
         initComponents();
@@ -77,16 +73,6 @@ public class ProductManagement extends javax.swing.JPanel {
     public String getBrandId(String brandId) {//
         this.brandId = brandId;
         return brandId;
-    }
-    
-    public String getMainId(String mainId) {//
-        this.mainId = mainId;
-        return mainId;
-    }
-    
-    public String getSubId(String subId) {//
-        this.subId = subId;
-        return subId;
     }
     
     public JTextField getJTextField5() {
@@ -175,7 +161,7 @@ public class ProductManagement extends javax.swing.JPanel {
 
         jButton1.setBackground(new java.awt.Color(27, 49, 77));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jButton1.setText("Save Supplier");
+        jButton1.setText("Save Product");
         jButton1.setPreferredSize(new java.awt.Dimension(79, 35));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +181,7 @@ public class ProductManagement extends javax.swing.JPanel {
 
         jButton3.setBackground(new java.awt.Color(118, 48, 129));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jButton3.setText("Update Supplier");
+        jButton3.setText("Update Product");
         jButton3.setEnabled(false);
         jButton3.setPreferredSize(new java.awt.Dimension(79, 35));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -331,7 +317,7 @@ public class ProductManagement extends javax.swing.JPanel {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/glass.png"))); // NOI18N
 
-        jLabel13.setText("Search User");
+        jLabel13.setText("Search Product");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -461,7 +447,7 @@ public class ProductManagement extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-/////////
+/////////UPDATE
         String productTitle = jTextField4.getText();
         String Brand = jTextField5.getText();
         String categoryId = jTextField7.getText();
