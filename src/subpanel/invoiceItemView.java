@@ -7,6 +7,7 @@ package subpanel;
 import gui.ReturnManagement;
 import java.sql.ResultSet;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.MySQL;
 
@@ -14,24 +15,26 @@ import model.MySQL;
  *
  * @author daham
  */
-public class invoiceItemView extends javax.swing.JFrame {
+public class invoiceItemView extends javax.swing.JDialog {
 
     private ReturnManagement returnManagement;
+    
+    String inid;
 
     public void setreturnManagement(ReturnManagement returnManagement) {
+      
         this.returnManagement = returnManagement;
     }
-
+     
     /**
      * Creates new form invoiceItemView
      */
     public invoiceItemView() {
         initComponents();
-        loadInvoiceItemProduct();
+        loadInvoiceItemProduct(inid);
     }
 
-    private void loadInvoiceItemProduct() {
-
+    public void loadInvoiceItemProduct(String inid) {
         try {
             ResultSet customerReturnResultSet = MySQL.execute("SELECT * FROM `invoice_item`"
                     + "INNER JOIN `invoice`\n"
@@ -43,7 +46,8 @@ public class invoiceItemView extends javax.swing.JFrame {
                     + "INNER JOIN `color`\n"
                     + "ON `color`.`co_id` = `stock`.`co_id`\n"
                     + "INNER JOIN `product` \n"
-                    + "ON `product`.p_id = `stock`.`p_id`");
+                    + "ON `product`.p_id = `stock`.`p_id`"
+                    + "WHERE `invoice_item`.`in_id` ='"+inid+"'");
 
             DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
             model.setRowCount(0);
@@ -86,6 +90,7 @@ public class invoiceItemView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         kGradientPanel1 = new com.k33ptoo.components.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
@@ -93,7 +98,8 @@ public class invoiceItemView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
 
@@ -115,18 +121,28 @@ public class invoiceItemView extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Invoices Items");
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -252,8 +268,13 @@ public class invoiceItemView extends javax.swing.JFrame {
 
         int row = jTable3.getSelectedRow();
 
-        if (evt.getClickCount() == 2) {
-            if (returnManagement != null) {
+        if (evt.getClickCount() == 2 && jTable3.getSelectedRow() != -1) {
+
+            String qty = String.valueOf(jTable3.getValueAt(row, 5));
+            int initqty = Integer.parseInt(qty);
+            if (initqty == 0) {
+                JOptionPane.showMessageDialog(this, "Product Quantity Zero Can't Return Product", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (returnManagement != null) {
                 returnManagement.getjFormattedTextField3().setText(String.valueOf(jTable3.getValueAt(row, 0)));
                 returnManagement.getjTextField3().setText(String.valueOf(jTable3.getValueAt(row, 2)));
                 returnManagement.getjFormattedTextField1().setText(String.valueOf(jTable3.getValueAt(row, 1)));
@@ -267,10 +288,10 @@ public class invoiceItemView extends javax.swing.JFrame {
 
     private void jTextField6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyReleased
         // TODO add your handling code here:
-        
-       String text =  jTextField6.getText();
-       
-       try {
+
+        String text = jTextField6.getText();
+
+        try {
             ResultSet customerReturnResultSet = MySQL.execute("SELECT * FROM `invoice_item`"
                     + "INNER JOIN `invoice`\n"
                     + "ON `invoice`.`in_id`= `invoice_item`.`in_id`\n"
@@ -282,9 +303,9 @@ public class invoiceItemView extends javax.swing.JFrame {
                     + "ON `color`.`co_id` = `stock`.`co_id`\n"
                     + "INNER JOIN `product` \n"
                     + "ON `product`.p_id = `stock`.`p_id` "
-                    + "WHERE `invoice_item`.`init_id` LIKE '%"+text+"%'"
-                    + "OR `stock`.`barcode` LIKE '%"+text+"%'"
-                    + "OR  `product`.`title` LIKE '%"+text+"%'");
+                    + "WHERE `invoice_item`.`init_id` LIKE '%" + text + "%'"
+                    + "OR `stock`.`barcode` LIKE '%" + text + "%'"
+                    + "OR  `product`.`title` LIKE '%" + text + "%'");
 
             DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
             model.setRowCount(0);
@@ -352,6 +373,7 @@ public class invoiceItemView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

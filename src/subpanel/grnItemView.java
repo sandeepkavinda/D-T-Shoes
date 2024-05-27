@@ -4,9 +4,11 @@
  */
 package subpanel;
 
+import gui.Dashboard;
 import gui.ReturnManagement;
 import java.sql.ResultSet;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.MySQL;
 
@@ -14,15 +16,17 @@ import model.MySQL;
  *
  * @author daham
  */
-public class grnItemView extends javax.swing.JFrame {
+public class grnItemView extends javax.swing.JDialog {
 
     private ReturnManagement returnManagement;
+
+    String grnbarcode;
 
     public void setreturnManagement(ReturnManagement returnManagement) {
         this.returnManagement = returnManagement;
     }
-    
-    private void loadSupplierReturns() {
+
+    public void loadSupplierReturns(String grnbarcode) {
 
         try {
 
@@ -36,7 +40,8 @@ public class grnItemView extends javax.swing.JFrame {
                     + "INNER JOIN`size`\n"
                     + "ON `size`.`s_id`= `stock`.`s_id`\n"
                     + "INNER JOIN `grn`\n"
-                    + "ON `grn`.barcode =`grn_item`.`grn_barcode`");
+                    + "ON `grn`.barcode =`grn_item`.`grn_barcode`"
+                    + "WHERE `grn_item`.`grn_barcode` = '" + grnbarcode + "'");
 
             DefaultTableModel model1 = (DefaultTableModel) jTable4.getModel();
             model1.setRowCount(0);
@@ -65,13 +70,13 @@ public class grnItemView extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Creates new form grnItemView
      */
     public grnItemView() {
         initComponents();
-        loadSupplierReturns();
+        loadSupplierReturns(grnbarcode);
     }
 
     /**
@@ -86,6 +91,7 @@ public class grnItemView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         kGradientPanel1 = new com.k33ptoo.components.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
@@ -93,7 +99,8 @@ public class grnItemView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -115,18 +122,28 @@ public class grnItemView extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("GRN Item");
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(434, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -181,11 +198,11 @@ public class grnItemView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "GRN Item ID", "GRN Barcode", "Product", "Size", "Color"
+                "GRN Item ID", "GRN Barcode", "Product", "Size", "Color", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -208,7 +225,7 @@ public class grnItemView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -219,7 +236,7 @@ public class grnItemView extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -252,8 +269,13 @@ public class grnItemView extends javax.swing.JFrame {
 
         int row = jTable4.getSelectedRow();
 
-        if (evt.getClickCount() == 2) {
-            if (returnManagement != null) {
+        if (evt.getClickCount() == 2 && jTable4.getSelectedRow() != -1) {
+
+            String qty = String.valueOf(jTable4.getValueAt(row, 5));
+            int grnqty = Integer.parseInt(qty);
+            if (grnqty == 0) {
+                JOptionPane.showMessageDialog(this, "Product Quantity Zero Can't Return Product", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (returnManagement != null) {
                 returnManagement.getjFormattedTextField6().setText(String.valueOf(jTable4.getValueAt(row, 0)));
                 returnManagement.getjTextField9().setText(String.valueOf(jTable4.getValueAt(row, 2)));
                 returnManagement.getjFormattedTextField7().setText(String.valueOf(jTable4.getValueAt(row, 1)));
@@ -266,10 +288,9 @@ public class grnItemView extends javax.swing.JFrame {
 
     private void jTextField6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyReleased
         // TODO add your handling code here:
-        
-       
+
         String search = jTextField6.getText();
-        
+
         try {
 
             ResultSet supplierResultSet = MySQL.execute("SELECT * FROM `grn_item` "
@@ -283,9 +304,9 @@ public class grnItemView extends javax.swing.JFrame {
                     + "ON `size`.`s_id`= `stock`.`s_id`\n"
                     + "INNER JOIN `grn`\n"
                     + "ON `grn`.barcode =`grn_item`.`grn_barcode`"
-                    + "WHERE `grn_item`.`id` LIKE '%"+search+"%'"
-                    + "OR `grn`.`barcode` LIKE '%"+search+"%'"
-                    + "OR  `product`.`title` LIKE '%"+search+"%'");
+                    + "WHERE `grn_item`.`id` LIKE '%" + search + "%'"
+                    + "OR `grn`.`barcode` LIKE '%" + search + "%'"
+                    + "OR  `product`.`title` LIKE '%" + search + "%'");
 
             DefaultTableModel model1 = (DefaultTableModel) jTable4.getModel();
             model1.setRowCount(0);
@@ -313,8 +334,8 @@ public class grnItemView extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
-       
+
+
     }//GEN-LAST:event_jTextField6KeyReleased
 
     /**
@@ -354,6 +375,7 @@ public class grnItemView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

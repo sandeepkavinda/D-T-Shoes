@@ -16,30 +16,32 @@ public class CompanySetting extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         dashboard = (Dashboard) parent;
-        loadBrandTable("SELECT * FROM `brand`");
+        loadCompanyTable("SELECT * FROM `company`");
     }
 
-    private void loadBrandTable(String query) {
+    private void loadCompanyTable(String query) {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
             ResultSet results = MySQL.execute(query);
             while (results.next()) {
                 Vector v = new Vector();
-                v.add(results.getString("b_id"));
-                v.add(results.getString("b_name"));
+                v.add(results.getString("id"));
+                v.add(results.getString("company_name"));
+                v.add(results.getString("contact_no"));
                 model.addRow(v);
             }
 
         } catch (Exception e) {
-            SignIn.log1.warning(e.toString());
+            e.printStackTrace();
         }
     }
 
-    private void resetBrandSetting() {
+    private void resetCompanySetting() {
         jButton1.setEnabled(true);
         jButton2.setEnabled(false);
         jTextField1.setText("");
+        jTextField3.setText("");
         jTextField2.setEnabled(true);
         jTable1.setEnabled(true);
     }
@@ -61,6 +63,8 @@ public class CompanySetting extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,13 +94,13 @@ public class CompanySetting extends javax.swing.JDialog {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jLabel2.setText("Brand Name");
+        jLabel2.setText("Company Name");
 
         jTextField1.setPreferredSize(new java.awt.Dimension(250, 35));
 
         jButton1.setBackground(new java.awt.Color(27, 49, 77));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jButton1.setText("Add Brand");
+        jButton1.setText("Add Company");
         jButton1.setPreferredSize(new java.awt.Dimension(250, 35));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,7 +110,7 @@ public class CompanySetting extends javax.swing.JDialog {
 
         jButton2.setBackground(new java.awt.Color(0, 117, 105));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jButton2.setText("Update Brand");
+        jButton2.setText("Update Company");
         jButton2.setEnabled(false);
         jButton2.setPreferredSize(new java.awt.Dimension(250, 35));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +129,7 @@ public class CompanySetting extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setText("Search Brand");
+        jLabel3.setText("Search Company");
 
         jTextField2.setPreferredSize(new java.awt.Dimension(250, 35));
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -160,6 +164,10 @@ public class CompanySetting extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel5.setText("Contact Number");
+
+        jTextField3.setPreferredSize(new java.awt.Dimension(250, 35));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -167,12 +175,16 @@ public class CompanySetting extends javax.swing.JDialog {
             .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -182,7 +194,7 @@ public class CompanySetting extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -207,15 +219,19 @@ public class CompanySetting extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 272, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -234,23 +250,25 @@ public class CompanySetting extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        loadBrandTable("SELECT * FROM `brand` WHERE `b_name` LIKE '" + jTextField2.getText() + "%'");
+        loadCompanyTable("SELECT * FROM `company` WHERE `company_name` "
+                + "LIKE '%" + jTextField2.getText() + "%' OR `contact_no` "
+                + "LIKE '" + jTextField2.getText() + "%'");
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
         if (evt.getClickCount() == 2 && jTable1.getSelectedRow() != -1) {
             jTextField1.setText(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1)));
+            jTextField3.setText(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2)));
             jTable1.setEnabled(false);
             jButton1.setEnabled(false);
             jTextField2.setEnabled(false);
             jButton2.setEnabled(true);
         }
-
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        resetBrandSetting();
+        resetCompanySetting();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -258,24 +276,33 @@ public class CompanySetting extends javax.swing.JDialog {
         int selectedRow = jTable1.getSelectedRow();
 
         if (selectedRow != -1) {
-            String brandName = jTextField1.getText();
-            if (brandName.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Brand name is empty", "Warning", JOptionPane.WARNING_MESSAGE);
-            } else if (brandName.length() > 40) {
-                JOptionPane.showMessageDialog(this, "Brand name should be less than 40 characters", "Warning", JOptionPane.WARNING_MESSAGE);
+            String companyName = jTextField1.getText();
+            String contact = jTextField3.getText();
+
+            if (companyName.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Company name is empty",
+                        "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (contact.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please Enter Company Mobile Number",
+                        "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
                 try {
-                    ResultSet results = MySQL.execute("SELECT * FROM `brand` WHERE `b_name`='" + brandName + "'");
+                    ResultSet results = MySQL.execute("SELECT * FROM `company`  "
+                            + "WHERE `company_name`='" + companyName + "' AND `contact_no` = '"+contact+"' ");
                     if (results.next()) {
-                        JOptionPane.showMessageDialog(this, "Brand already exists", "Warning", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Company already exists",
+                                "Warning", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        MySQL.execute("UPDATE `brand` SET `b_name`='" + brandName + "' WHERE `b_id`='" + String.valueOf(jTable1.getValueAt(selectedRow, 0)) + "'");
-                        resetBrandSetting();
-                        loadBrandTable("SELECT * FROM `brand`");
-                        JOptionPane.showMessageDialog(this, "Brand updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+                        MySQL.execute("UPDATE `company` SET `company_name`='" + companyName + "', "
+                                + "`contact_no` = '" + contact + "' "
+                                + "WHERE `id`='" + String.valueOf(jTable1.getValueAt(selectedRow, 0)) + "'");
+                        resetCompanySetting();
+                        loadCompanyTable("SELECT * FROM `company`");
+                        JOptionPane.showMessageDialog(this, "Company updated successfully",
+                                "Information", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } catch (Exception e) {
-                    SignIn.log1.warning(e.toString());
+                    e.printStackTrace();
                 }
             }
         }
@@ -284,24 +311,32 @@ public class CompanySetting extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        String brandName = jTextField1.getText();
-        if (brandName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Brand name is empty", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (brandName.length() > 40) {
-            JOptionPane.showMessageDialog(this, "Brand name should be less than 40 characters", "Warning", JOptionPane.WARNING_MESSAGE);
+        String companyName = jTextField1.getText();
+        String contact = jTextField3.getText();
+
+        if (companyName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Company name is empty", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (contact.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter contact Number",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                ResultSet results = MySQL.execute("SELECT * FROM `brand` WHERE `b_name`='" + brandName + "'");
+                ResultSet results = MySQL.execute("SELECT * FROM `company` "
+                        + "WHERE `company_name`='" + companyName + "' AND `contact_no`= '" + contact + "'");
                 if (results.next()) {
-                    JOptionPane.showMessageDialog(this, "Brand already exists", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Company already exists",
+                            "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    MySQL.execute("INSERT INTO `brand` (`b_name`) VALUES ('" + brandName + "')");
-                    resetBrandSetting();
-                    loadBrandTable("SELECT * FROM `brand`");
-                    JOptionPane.showMessageDialog(this, "Brand added successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    MySQL.execute("INSERT INTO `company` (`company_name`,`contact_no`) "
+                            + "VALUES ('" + companyName + "','" + contact + "')");
+                    resetCompanySetting();
+                    loadCompanyTable("SELECT * FROM `company`");
+                    JOptionPane.showMessageDialog(this, "Company added successfully",
+                            "Information", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception e) {
-                SignIn.log1.warning(e.toString());
+                e.printStackTrace();
             }
         }
 
@@ -315,11 +350,13 @@ public class CompanySetting extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private com.k33ptoo.components.KGradientPanel kGradientPanel2;
     // End of variables declaration//GEN-END:variables
 }
