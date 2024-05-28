@@ -41,7 +41,9 @@ public class StockManagement extends javax.swing.JPanel {
                     + "INNER JOIN `size`\n"
                     + "ON `size`.`s_id` = `stock`.`s_id`\n"
                     + "INNER JOIN `color`\n"
-                    + "ON `stock`.`co_id` = `color`.`co_id`");
+                    + "ON `stock`.`co_id` = `color`.`co_id`"
+                    + "INNER JOIN `grn_item`"
+                    + "ON `grn_item`.`product_p_id`=`product`.`p_id`");
 
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
@@ -54,7 +56,8 @@ public class StockManagement extends javax.swing.JPanel {
                 String mainCategory = stockResultSet.getString("main_category.mc_name");
                 String size = stockResultSet.getString("size.s_name");
                 String colorName = stockResultSet.getString("color.co_name");
-                String price = stockResultSet.getString("stock.price");
+                String sellingprice = stockResultSet.getString("stock.price");
+                String buying_price = stockResultSet.getString("grn_item.buying_price");
                 String availableqty = stockResultSet.getString("stock.available_qty");
 
                 Vector vector = new Vector();
@@ -65,7 +68,8 @@ public class StockManagement extends javax.swing.JPanel {
                 vector.add(mainCategory);
                 vector.add(size);
                 vector.add(colorName);
-                vector.add(price);
+                vector.add(sellingprice);
+                vector.add(buying_price);
                 vector.add(availableqty);
 
                 model.addRow(vector);
@@ -187,11 +191,11 @@ public class StockManagement extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel16.setText("From :");
+        jLabel16.setText("MIn :");
 
         jTextField5.setPreferredSize(new java.awt.Dimension(69, 35));
 
-        jLabel17.setText("To :");
+        jLabel17.setText("Max :");
 
         jTextField9.setPreferredSize(new java.awt.Dimension(69, 35));
 
@@ -252,11 +256,11 @@ public class StockManagement extends javax.swing.JPanel {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel18.setText("From :");
+        jLabel18.setText("Min :");
 
         jTextField10.setPreferredSize(new java.awt.Dimension(69, 35));
 
-        jLabel19.setText("To :");
+        jLabel19.setText("Max :");
 
         jTextField11.setPreferredSize(new java.awt.Dimension(69, 35));
 
@@ -317,11 +321,11 @@ public class StockManagement extends javax.swing.JPanel {
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel26.setText("From :");
+        jLabel26.setText("Min :");
 
         jTextField18.setPreferredSize(new java.awt.Dimension(69, 35));
 
-        jLabel27.setText("To :");
+        jLabel27.setText("Max :");
 
         jTextField19.setPreferredSize(new java.awt.Dimension(69, 35));
 
@@ -408,11 +412,11 @@ public class StockManagement extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Stock Barcode", "Product ID", "Product Title", "Brand", "Main Category", "Size", "Color", "Selling Price", "Available Quantity"
+                "Stock Barcode", "Product ID", "Product Title", "Brand", "Main Category", "Size", "Color", "Selling Price", "Buying Price", "Available Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -501,6 +505,7 @@ public class StockManagement extends javax.swing.JPanel {
                     String size = buyingPricers.getString("size.s_name");
                     String colorName = buyingPricers.getString("color.co_name");
                     String price = buyingPricers.getString("stock.price");
+                    String buyingprice = buyingPricers.getString("grn_item.buying_price");
                     String availableqty = buyingPricers.getString("stock.available_qty");
 
                     Vector vector = new Vector();
@@ -512,6 +517,7 @@ public class StockManagement extends javax.swing.JPanel {
                     vector.add(size);
                     vector.add(colorName);
                     vector.add(price);
+                    vector.add(buyingprice);
                     vector.add(availableqty);
 
                     model.addRow(vector);
@@ -547,6 +553,8 @@ public class StockManagement extends javax.swing.JPanel {
                     + "ON `size`.`s_id` = `stock`.`s_id`\n"
                     + "INNER JOIN `color`\n"
                     + "ON `stock`.`co_id` = `color`.`co_id` "
+                    + "INNER JOIN `grn_item`"
+                    + "ON `grn_item`.`product_p_id`=`product`.`p_id`"
                     + "WHERE `stock`.`barcode` LIKE'%" + search + "%' "
                     + "OR `product`.`title` LIKE '%" + search + "%'"
                     + "OR `brand`.`b_name` LIKE '%" + search + "%'"
@@ -566,6 +574,7 @@ public class StockManagement extends javax.swing.JPanel {
                 String size = stockSearchResultSet.getString("size.s_name");
                 String colorName = stockSearchResultSet.getString("color.co_name");
                 String price = stockSearchResultSet.getString("stock.price");
+                String buyingprice = stockSearchResultSet.getString("grn_item.buying_price");
                 String availableqty = stockSearchResultSet.getString("stock.available_qty");
 
                 Vector vector = new Vector();
@@ -577,6 +586,7 @@ public class StockManagement extends javax.swing.JPanel {
                 vector.add(size);
                 vector.add(colorName);
                 vector.add(price);
+                vector.add(buyingprice);
                 vector.add(availableqty);
 
                 model.addRow(vector);
@@ -611,6 +621,8 @@ public class StockManagement extends javax.swing.JPanel {
                         + "ON `size`.`s_id` = `stock`.`s_id`\n"
                         + "INNER JOIN `color`\n"
                         + "ON `stock`.`co_id` = `color`.`co_id`"
+                        + "INNER JOIN `grn_item`"
+                        + "ON `grn_item`.`product_p_id`=`product`.`p_id`"
                         + "WHERE `stock`.`price` BETWEEN '" + fromvalue + "' AND '" + tovalue + "'");
 
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -625,6 +637,7 @@ public class StockManagement extends javax.swing.JPanel {
                     String size = buyingPricers.getString("size.s_name");
                     String colorName = buyingPricers.getString("color.co_name");
                     String price = buyingPricers.getString("stock.price");
+                    String buyingprice = buyingPricers.getString("grn_item.buying_price");
                     String availableqty = buyingPricers.getString("stock.available_qty");
 
                     Vector vector = new Vector();
@@ -636,6 +649,7 @@ public class StockManagement extends javax.swing.JPanel {
                     vector.add(size);
                     vector.add(colorName);
                     vector.add(price);
+                    vector.add(buyingprice);
                     vector.add(availableqty);
 
                     model.addRow(vector);
@@ -676,6 +690,8 @@ public class StockManagement extends javax.swing.JPanel {
                         + "ON `size`.`s_id` = `stock`.`s_id`\n"
                         + "INNER JOIN `color`\n"
                         + "ON `stock`.`co_id` = `color`.`co_id`"
+                        + "INNER JOIN `grn_item`"
+                        + "ON `grn_item`.`product_p_id`=`product`.`p_id`"
                         + "WHERE `stock`.`available_qty` BETWEEN '" + fromqty + "' AND '" + toqty + "'");
 
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -690,6 +706,7 @@ public class StockManagement extends javax.swing.JPanel {
                     String size = buyingPricers.getString("size.s_name");
                     String colorName = buyingPricers.getString("color.co_name");
                     String price = buyingPricers.getString("stock.price");
+                    String buying_price = buyingPricers.getString("grn_item.buying_price");
                     String availableqty = buyingPricers.getString("stock.available_qty");
 
                     Vector vector = new Vector();
@@ -701,6 +718,7 @@ public class StockManagement extends javax.swing.JPanel {
                     vector.add(size);
                     vector.add(colorName);
                     vector.add(price);
+                    vector.add(buying_price);
                     vector.add(availableqty);
 
                     model.addRow(vector);
