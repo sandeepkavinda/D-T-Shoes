@@ -70,7 +70,7 @@ public class SignIn extends javax.swing.JFrame {
 
         jLabel3.setText("Username");
 
-        jTextField1.setText("ab");
+        jTextField1.setText("Daham Bandara");
         jTextField1.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jLabel4.setText("Password");
@@ -205,7 +205,7 @@ public class SignIn extends javax.swing.JFrame {
                         userBean.setLname(resultSet.getString("lname"));
                         userBean.setUsername(resultSet.getString("username"));
                         userBean.setMobile(resultSet.getString("mobile"));
-                        userBean.setMobile(resultSet.getString("user_type.type"));
+                        userBean.setUserType(resultSet.getString("user_type.type"));
 
                         Dashboard dashboard = new Dashboard();
                         dashboard.setUserBean(userBean);
