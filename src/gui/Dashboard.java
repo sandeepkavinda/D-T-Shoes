@@ -20,51 +20,51 @@ import subpanel.CategorySetting;
 import subpanel.LowStock;
 
 public class Dashboard extends javax.swing.JFrame {
-    
+
     public static final DecimalFormat FORMAT = new DecimalFormat("#0.00");
     public static final Color PRIMARYCOLOR = new Color(0, 117, 105);
     public static UserBean userBean;
-    
+
     public void setUserBean(UserBean userBean) {
         this.userBean = userBean;
         jLabel5.setText(userBean.getUsername());
         jLabel6.setText(userBean.getUserType());
     }
-    
+
     public static void editTable(JTable[] table) {
         for (int i = 0; i < table.length; i++) {
             table[i].getTableHeader().setBackground(PRIMARYCOLOR);
             table[i].getTableHeader().setForeground(Color.WHITE);
         }
     }
-    
+
     public Dashboard() {
         initComponents();
-        
+
         MainPanel.removeAll();
         DashboardPanel dp = new DashboardPanel();
         MainPanel.add(dp, BorderLayout.CENTER);
         SwingUtilities.updateComponentTreeUI(jPanel3);
     }
-    
+
     private void setFontBold(JToggleButton jToggleButton) {
         Font currentFont = jToggleButton.getFont();
         Font boldFont = currentFont.deriveFont(Font.BOLD);
         jToggleButton.setFont(boldFont);
     }
-    
+
     private void setFontNormal(JToggleButton jToggleButton) {
         Font currentFont = jToggleButton.getFont();
         Font normalFont = currentFont.deriveFont(Font.PLAIN);
         jToggleButton.setFont(normalFont);
     }
-    
+
     private void changePanel(JPanel panel) {
         MainPanel.removeAll();
         MainPanel.add(panel, BorderLayout.CENTER);
         SwingUtilities.updateComponentTreeUI(jPanel3);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -737,9 +737,9 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        
+
         if (jToggleButton1.isSelected()) {
-            
+
             Thread t = new Thread(
                     () -> {
                         for (int i = jPanel2.getWidth(); i >= 47; i -= 47) {
@@ -758,9 +758,9 @@ public class Dashboard extends javax.swing.JFrame {
                     }
             );
             t.start();
-            
+
         } else {
-            
+
             Thread t = new Thread(
                     () -> {
                         for (int i = 50; i <= 300; i += 50) {
@@ -851,7 +851,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton12ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
+
         new BrandSetiing(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -874,13 +874,13 @@ public class Dashboard extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new LowStock(this, true).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     public static void main(String args[]) {
-        
+
         FlatLightLaf.registerCustomDefaultsSource("style");
         FlatLightLaf.setup();
         UIManager.put("TextComponent.arc", 10);
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Dashboard().setVisible(true);

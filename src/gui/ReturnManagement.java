@@ -94,7 +94,6 @@ public class ReturnManagement extends javax.swing.JPanel {
     }
 
     private void loadCustomerReturns() {
-
         try {
             ResultSet customerReturnResultSet = MySQL.execute("SELECT * FROM `customer_return` INNER JOIN `invoice_item`\n"
                     + "ON `customer_return`.`invoice_item_init_id` = `invoice_item`.`init_id`\n"
@@ -405,7 +404,7 @@ public class ReturnManagement extends javax.swing.JPanel {
                     .addComponent(jFormattedTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jFormattedTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jFormattedTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                        .addComponent(jFormattedTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -500,7 +499,7 @@ public class ReturnManagement extends javax.swing.JPanel {
                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel9)
-                        .addContainerGap(23, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1011,21 +1010,28 @@ public class ReturnManagement extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-
         String inid = jFormattedTextField9.getText();
 
-        invoiceItemView invoiceItem = new invoiceItemView();
-        invoiceItem.setreturnManagement(this);
-        invoiceItem.loadInvoiceItemProduct(inid);
-        invoiceItem.setDashboard(dashboard);
-        invoiceItem.setVisible(true);
-        dashboard.setEnabled(false);
+        if (inid.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Select Invoice First", "Warning", JOptionPane.WARNING_MESSAGE);
 
-        jFormattedTextField3.setEditable(false);
-        jFormattedTextField1.setEditable(false);
-        jTextField3.setEditable(false);
-        jTextField10.setEditable(false);
-        jFormattedTextField2.setEditable(false);
+        } else {
+
+            invoiceItemView invoiceItem = new invoiceItemView();
+            invoiceItem.setreturnManagement(this);
+            invoiceItem.loadInvoiceItemProduct(inid);
+            invoiceItem.setDashboard(dashboard);
+            invoiceItem.setVisible(true);
+            dashboard.setEnabled(false);
+
+            jFormattedTextField3.setEditable(false);
+            jFormattedTextField1.setEditable(false);
+            jTextField3.setEditable(false);
+            jTextField10.setEditable(false);
+            jFormattedTextField2.setEditable(false);
+
+        }
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton5KeyPressed
@@ -1043,18 +1049,25 @@ public class ReturnManagement extends javax.swing.JPanel {
         // TODO add your handling code here:
         String grnbarcode = jFormattedTextField10.getText();
 
-        grnItemView grnItem = new grnItemView();
-        grnItem.setreturnManagement(this);
-        grnItem.loadSupplierReturns(grnbarcode);
-        grnItem.setDashboard(dashboard);
-        grnItem.setVisible(true);
-        dashboard.setEnabled(false);
+        if (grnbarcode.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Select GRN First", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
 
-        jFormattedTextField6.setEditable(false);
-        jFormattedTextField10.setEditable(false);
-        jTextField9.setEditable(false);
-        jFormattedTextField8.setEditable(false);
-        jTextField11.setEditable(false);
+            grnItemView grnItem = new grnItemView();
+            grnItem.setreturnManagement(this);
+            grnItem.loadSupplierReturns(grnbarcode);
+            grnItem.setDashboard(dashboard);
+            grnItem.setVisible(true);
+            dashboard.setEnabled(false);
+
+            jFormattedTextField6.setEditable(false);
+            jFormattedTextField10.setEditable(false);
+            jTextField9.setEditable(false);
+            jFormattedTextField8.setEditable(false);
+            jTextField11.setEditable(false);
+
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jTextField6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyReleased
