@@ -18,6 +18,12 @@ import subpanel.invoiceView;
 
 public class ReturnManagement extends javax.swing.JPanel {
 
+    Dashboard dashboard;
+
+    public void setDashboard(Dashboard dashboard) {
+        this.dashboard = dashboard;
+    }
+
     public ReturnManagement() {
         initComponents();
         loadCustomerReturns();
@@ -1009,9 +1015,11 @@ public class ReturnManagement extends javax.swing.JPanel {
         String inid = jFormattedTextField9.getText();
 
         invoiceItemView invoiceItem = new invoiceItemView();
-        invoiceItem.setVisible(true);
         invoiceItem.setreturnManagement(this);
         invoiceItem.loadInvoiceItemProduct(inid);
+        invoiceItem.setDashboard(dashboard);
+        invoiceItem.setVisible(true);
+        dashboard.setEnabled(false);
 
         jFormattedTextField3.setEditable(false);
         jFormattedTextField1.setEditable(false);
@@ -1036,9 +1044,11 @@ public class ReturnManagement extends javax.swing.JPanel {
         String grnbarcode = jFormattedTextField10.getText();
 
         grnItemView grnItem = new grnItemView();
-        grnItem.setVisible(true);
         grnItem.setreturnManagement(this);
         grnItem.loadSupplierReturns(grnbarcode);
+        grnItem.setDashboard(dashboard);
+        grnItem.setVisible(true);
+        dashboard.setEnabled(false);
 
         jFormattedTextField6.setEditable(false);
         jFormattedTextField10.setEditable(false);
@@ -1161,11 +1171,13 @@ public class ReturnManagement extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton7MouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
 
         invoiceView invoiceView = new invoiceView();
-        invoiceView.setVisible(true);
+        invoiceView.setDashboard(dashboard);
         invoiceView.setreturnManagement(this);
+        invoiceView.setVisible(true);
+        dashboard.setEnabled(false);
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton7KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton7KeyPressed
@@ -1175,8 +1187,11 @@ public class ReturnManagement extends javax.swing.JPanel {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
         grnView grn = new grnView();
-        grn.setVisible(true);
         grn.setreturnManagement(this);
+        grn.setDashboard(dashboard);
+        grn.setVisible(true);
+        dashboard.setEnabled(false);
+
 
     }//GEN-LAST:event_jButton8ActionPerformed
 

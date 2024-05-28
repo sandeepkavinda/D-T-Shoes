@@ -134,7 +134,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jPanel3" pref="641" max="32767" attributes="0"/>
+                          <Component id="jPanel3" pref="637" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -171,7 +171,7 @@
                               <Component id="jFormattedTextField2" alignment="0" max="32767" attributes="0"/>
                               <Component id="jFormattedTextField4" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jFormattedTextField3" pref="222" max="32767" attributes="0"/>
+                                  <Component id="jFormattedTextField3" pref="209" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jButton5" min="-2" pref="35" max="-2" attributes="0"/>
                               </Group>
@@ -435,7 +435,7 @@
                                   <Component id="jTextField6" min="-2" pref="305" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="23" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -580,7 +580,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel5" pref="647" max="32767" attributes="0"/>
+                  <Component id="jPanel5" pref="650" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -625,7 +625,7 @@
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Component id="jFormattedTextField10" max="32767" attributes="0"/>
-                                              <Component id="jFormattedTextField6" pref="222" max="32767" attributes="0"/>
+                                              <Component id="jFormattedTextField6" pref="209" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">

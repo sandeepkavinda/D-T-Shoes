@@ -33,7 +33,7 @@ public class CompanySetting extends javax.swing.JDialog {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            SignIn.log1.warning(e.toString());
         }
     }
 
@@ -302,7 +302,7 @@ public class CompanySetting extends javax.swing.JDialog {
                                 "Information", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    SignIn.log1.warning(e.toString());
                 }
             }
         }
@@ -339,7 +339,7 @@ public class CompanySetting extends javax.swing.JDialog {
                             "Information", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                SignIn.log1.warning(e.toString());
             }
         }
 

@@ -503,6 +503,7 @@ public class ProductManagement extends javax.swing.JPanel {
         addBrand.setDashboard(dashboard);
         addBrand.setProductManagement(this);
         addBrand.setVisible(true);
+        dashboard.setEnabled(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyReleased
@@ -557,6 +558,7 @@ public class ProductManagement extends javax.swing.JPanel {
         addCategory.setDashboard(dashboard);
         addCategory.setProductManagement(this);
         addCategory.setVisible(true);
+        dashboard.setEnabled(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
