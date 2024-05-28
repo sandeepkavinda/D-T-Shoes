@@ -20,6 +20,7 @@ public class CustomManagement extends javax.swing.JPanel {
 
     private Boolean custometConfim = false;
     private String updatingBarcode;
+    private Date orderedDate;
 
     public void setDashboard(Dashboard dashboard) {
         this.dashboard = dashboard;
@@ -29,7 +30,6 @@ public class CustomManagement extends javax.swing.JPanel {
         initComponents();
         loadCustomServicesTable();
 
-        jDateChooser1.setMinSelectableDate(new Date());
         JTable[] jt = {jTable1};
         Dashboard.editTable(jt);
     }
@@ -379,7 +379,7 @@ public class CustomManagement extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,7 +404,7 @@ public class CustomManagement extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Barcode", "Description", "Customer Mobile", "Customer Name", "Amount", "Quantity", "Total Amount", "Advanced Payment", "Orderd Date", "Deliver Date", "Order Status"
+                "Barcode", "Description", "Customer Mobile", "Customer Name", "Amount", "Quantity", "Total Amount", "Paid Amount", "Orderd Date", "Deliver Date", "Order Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -483,15 +483,15 @@ public class CustomManagement extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Enter Description", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (amount.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Amount", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (!amount.matches("\\-?\\d+\\.?\\d{0,2}")) {
+        } else if (!amount.matches("\\-?\\d+\\.?\\d{0,2}")||Double.parseDouble(amount)<0) {
             JOptionPane.showMessageDialog(this, "Invalid Amount", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (qty.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Quantity", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (!qty.matches("^[0-9]*$")) {
+        } else if (!qty.matches("^[0-9]*$")||Double.parseDouble(qty)<0) {
             JOptionPane.showMessageDialog(this, "Invalid Qunatity", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (advance.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Advance Payment", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (!advance.matches("\\-?\\d+\\.?\\d{0,2}")) {
+        } else if (!advance.matches("\\-?\\d+\\.?\\d{0,2}")||Double.parseDouble(advance)<0) {
             JOptionPane.showMessageDialog(this, "Invalid Advance Amount", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if ((Double.parseDouble(amount) * Integer.parseInt(qty)) < Double.parseDouble(advance)) {
             JOptionPane.showMessageDialog(this, "Advance Payment Cannot Be Higher Than Full Amount", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -501,7 +501,7 @@ public class CustomManagement extends javax.swing.JPanel {
             Date date = new Date();
 
             if (!deliverDate.after(date)) {
-                JOptionPane.showMessageDialog(this, "ok", "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Date To Be Delivered Cannot be less than today", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 String today = String.valueOf(format.format(date));
@@ -552,6 +552,7 @@ public class CustomManagement extends javax.swing.JPanel {
                 jDateChooser1.setDate(date);
 
                 updatingBarcode = String.valueOf(jTable1.getValueAt(selectedRow, 0));
+                orderedDate = format.parse(String.valueOf(jTable1.getValueAt(selectedRow, 8)));
 
                 jTextField1.setEnabled(false);
                 jButton5.setEnabled(false);
@@ -585,15 +586,15 @@ public class CustomManagement extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Enter Description", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (amount.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Amount", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (!amount.matches("\\-?\\d+\\.?\\d{0,2}")) {
+        } else if (!amount.matches("\\-?\\d+\\.?\\d{0,2}")||Double.parseDouble(amount)<0) {
             JOptionPane.showMessageDialog(this, "Invalid Amount", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (qty.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Quantity", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (!qty.matches("^[0-9]*$")) {
+        } else if (!qty.matches("^[0-9]*$")||Double.parseDouble(qty)<0) {
             JOptionPane.showMessageDialog(this, "Invalid Qunatity", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (advance.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Advance Payment", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (!advance.matches("\\-?\\d+\\.?\\d{0,2}")) {
+        } else if (!advance.matches("\\-?\\d+\\.?\\d{0,2}")||Double.parseDouble(advance)<0) {
             JOptionPane.showMessageDialog(this, "Invalid Advance Amount", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if ((Double.parseDouble(amount) * Integer.parseInt(qty)) < Double.parseDouble(advance)) {
             JOptionPane.showMessageDialog(this, "Advance Payment Cannot Be Higher Than Full Amount", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -602,8 +603,8 @@ public class CustomManagement extends javax.swing.JPanel {
         } else {
             Date date = new Date();
 
-            if (!deliverDate.after(date)) {
-                JOptionPane.showMessageDialog(this, "ok", "Warning", JOptionPane.WARNING_MESSAGE);
+            if (!deliverDate.after(orderedDate)) {
+                JOptionPane.showMessageDialog(this, "Date To Be Delivered Cannot be less than Ordered Date", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 String today = String.valueOf(format.format(date));
