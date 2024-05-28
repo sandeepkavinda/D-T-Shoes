@@ -14,6 +14,11 @@ import java.util.Random;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.MySQL;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import subpanel.AddProductList;
 import subpanel.AddSupplier;
 
@@ -995,6 +1000,22 @@ public class GrnManagement extends javax.swing.JPanel {
 
                 }
 
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("grnno", jTextField18.getText());
+                map.put("supcontact", jTextField1.getText());
+                map.put("supname", jTextField19.getText());
+                map.put("date", jTextField20.getText());
+                map.put("total", jLabel21.getText());
+                map.put("payment", jFormattedTextField3.getText());
+                map.put("balance", jLabel22.getText());
+                
+                String reportPath = "src//reports//Grn.jasper";
+
+                JRDataSource dataSource = new JRTableModelDataSource(jTable1.getModel());
+
+                JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, map, dataSource);
+                JasperViewer.viewReport(jasperPrint, false);
+
                 clearGRN();
                 JOptionPane.showMessageDialog(this, "success", "Warning", JOptionPane.WARNING_MESSAGE);
 
@@ -1002,6 +1023,7 @@ public class GrnManagement extends javax.swing.JPanel {
                 SignIn.log1.warning(e.toString());
             }
         }
+
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
