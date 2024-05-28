@@ -4,10 +4,11 @@
  */
 package subpanel;
 
+import gui.Dashboard;
 import gui.ReturnManagement;
+import gui.SignIn;
 import java.sql.ResultSet;
 import java.util.Vector;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.MySQL;
 
@@ -15,7 +16,7 @@ import model.MySQL;
  *
  * @author daham
  */
-public class grnView extends javax.swing.JDialog {
+public class grnView extends javax.swing.JFrame {
 
     /**
      * Creates new form grnView
@@ -24,41 +25,46 @@ public class grnView extends javax.swing.JDialog {
         initComponents();
         loadGRN();
     }
-
+    
     private ReturnManagement returnManagement;
-
+    private Dashboard dashboard;
+    
     public void setreturnManagement(ReturnManagement returnManagement) {
         this.returnManagement = returnManagement;
     }
-
+    
+    public void setDashboard(Dashboard dashboard) {
+        this.dashboard = dashboard;
+    }
+    
     private void loadGRN() {
-
+        
         try {
             ResultSet customerReturnResultSet = MySQL.execute("SELECT * FROM `grn`"
                     + "INNER JOIN `grn_item`"
                     + "ON `grn_item`.`grn_barcode`=`grn`.`barcode`");
-
+            
             DefaultTableModel model = (DefaultTableModel) jTable6.getModel();
             model.setRowCount(0);
-
+            
             while (customerReturnResultSet.next()) {
                 String grnbarcode = customerReturnResultSet.getString("barcode");
                 String grnDate = customerReturnResultSet.getString("date_time");
                 String buyingPrice = customerReturnResultSet.getString("buying_price");
                 String totalqty = customerReturnResultSet.getString("total");
-
+                
                 Vector vector = new Vector();
                 vector.add(grnbarcode);
                 vector.add(grnDate);
                 vector.add(buyingPrice);
                 vector.add(totalqty);
-
+                
                 model.addRow(vector);
                 jTable6.setModel(model);
             }
-
+            
         } catch (Exception e) {
-            e.printStackTrace();
+            SignIn.log1.warning(e.toString());
         }
     }
 
@@ -73,7 +79,6 @@ public class grnView extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         kGradientPanel1 = new com.k33ptoo.components.KGradientPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -84,7 +89,13 @@ public class grnView extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
-        setUndecorated(true);
+        setResizable(false);
+        setType(java.awt.Window.Type.POPUP);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -92,39 +103,27 @@ public class grnView extends javax.swing.JDialog {
         kGradientPanel1.setkBorderRadius(0);
         kGradientPanel1.setkEndColor(new java.awt.Color(27, 49, 77));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 117, 105));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/close.png"))); // NOI18N
-        jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        jLabel1.setIconTextGap(10);
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
+        kGradientPanel1.setPreferredSize(new java.awt.Dimension(108, 40));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("GRN");
+        jLabel2.setPreferredSize(new java.awt.Dimension(34, 40));
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -203,7 +202,7 @@ public class grnView extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,8 +216,8 @@ public class grnView extends javax.swing.JDialog {
                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -237,44 +236,39 @@ public class grnView extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jLabel1MouseClicked
-
     private void jTextField6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyReleased
         // TODO add your handling code here:
 
         String text = jTextField6.getText();
-
+        
         try {
             ResultSet customerReturnResultSet = MySQL.execute("SELECT * FROM `grn` SELECT * FROM `grn`"
                     + "INNER JOIN `grn_item`"
                     + "ON `grn_item`.`grn_barcode`=`grn`.`barcode`"
                     + "WHERE `grn`.`barcode` LIKE '%" + text + "%'"
                     + "OR `buying_price` LIKE '%" + text + "%'");
-
+            
             DefaultTableModel model = (DefaultTableModel) jTable6.getModel();
             model.setRowCount(0);
-
+            
             while (customerReturnResultSet.next()) {
                 String grnbarcode = customerReturnResultSet.getString("barcode");
                 String grnDate = customerReturnResultSet.getString("date_time");
                 String buyingPrice = customerReturnResultSet.getString("buying_price");
                 String totalqty = customerReturnResultSet.getString("total");
-
+                
                 Vector vector = new Vector();
                 vector.add(grnbarcode);
                 vector.add(grnDate);
                 vector.add(buyingPrice);
                 vector.add(totalqty);
-
+                
                 model.addRow(vector);
                 jTable6.setModel(model);
             }
-
+            
         } catch (Exception e) {
-            e.printStackTrace();
+            SignIn.log1.warning(e.toString());
         }
     }//GEN-LAST:event_jTextField6KeyReleased
 
@@ -286,53 +280,23 @@ public class grnView extends javax.swing.JDialog {
         // TODO add your handling code here:
 
         int row = jTable6.getSelectedRow();
-
+        
         if (evt.getClickCount() == 2 && jTable6.getSelectedRow() != -1) {
-
+            
             if (returnManagement != null) {
                 returnManagement.getjFormattedTextField10().setText(String.valueOf(jTable6.getValueAt(row, 0)));
+                dashboard.setEnabled(true);
                 this.dispose();
             }
         }
     }//GEN-LAST:event_jTable6MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(grnView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(grnView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(grnView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(grnView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        dashboard.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosing
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new grnView().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

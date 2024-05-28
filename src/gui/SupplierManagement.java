@@ -11,10 +11,15 @@ import model.MySQL;
 import subpanel.AddSupplierCompany;
 
 public class SupplierManagement extends javax.swing.JPanel {
-
+    
     String selectedCompanyId = "";
     private HashMap<String, Object> companyMap = new HashMap<>();
-
+    Dashboard dashboard;
+    
+    public void setDashboard(Dashboard dashboard) {
+        this.dashboard = dashboard;
+    }
+    
     public SupplierManagement() {
         initComponents();
         loadSuppliers();
@@ -25,7 +30,7 @@ public class SupplierManagement extends javax.swing.JPanel {
         Dashboard.editTable(jt);
         jTextField3.setEditable(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -586,42 +591,42 @@ public class SupplierManagement extends javax.swing.JPanel {
 
     private void loadCompanyMap() {
         try {
-
+            
             ResultSet resultSet = MySQL.execute("SELECT * FROM `supplier`");
-
+            
             while (resultSet.next()) {
                 String mobile = resultSet.getString("mobile");
                 String company_id = resultSet.getString("company_id");
                 companyMap.put(mobile, company_id);
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
     public JTextField getJTextField3() {
         return jTextField3;
     }
-
+    
     public void setSelectedCompanyId(String selectedCompanyId) {
         this.selectedCompanyId = selectedCompanyId;
     }
-
+    
     public String getSelectedCompanyId() {
         return this.selectedCompanyId;
     }
-
+    
     private String getSupplierCompanyIdInMobile(String mobile) {
         String company_id = String.valueOf(companyMap.get(mobile));
         return company_id;
     }
-
+    
     private void loadSuppliers() {
-
+        
         String searchText = jTextField6.getText();
         int orderIndex = jComboBox1.getSelectedIndex();
-
+        
         try {
             String orderType;
             if (orderIndex == 0) {
@@ -629,16 +634,16 @@ public class SupplierManagement extends javax.swing.JPanel {
             } else {
                 orderType = "DESC";
             }
-
+            
             ResultSet resultSet = MySQL.execute("SELECT * FROM `supplier` "
                     + "INNER JOIN `company` ON `company`.`id`=`supplier`.`company_id`"
                     + "INNER JOIN `status` ON `supplier`.`status_id`=`status`.`id` "
                     + "WHERE `mobile` LIKE '%" + searchText + "%' OR `fname` LIKE '%" + searchText + "%' OR `lname` LIKE '%" + searchText + "%' OR `company_name` LIKE '%" + searchText + "%' "
                     + "ORDER BY `fname` " + orderType + "");
-
+            
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
-
+            
             while (resultSet.next()) {
                 Vector v = new Vector();
                 v.add(resultSet.getString("mobile"));
@@ -649,15 +654,15 @@ public class SupplierManagement extends javax.swing.JPanel {
                 model.addRow(v);
                 jTable1.setModel(model);
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
     }
-
+    
     private void reset() {
-
+        
         jTextField1.setText("");
         jTextField2.setText("");
         jTextField4.setText("");
@@ -667,12 +672,12 @@ public class SupplierManagement extends javax.swing.JPanel {
         jButton1.setEnabled(true);
         jButton2.setEnabled(false);
     }
-
+    
     private void loadPendingPayments() {
-
+        
         String searchText = jTextField7.getText();
         int orderIndex = jComboBox2.getSelectedIndex();
-
+        
         try {
             String orderType;
             if (orderIndex == 0) {
@@ -680,7 +685,7 @@ public class SupplierManagement extends javax.swing.JPanel {
             } else {
                 orderType = "DESC";
             }
-
+            
             ResultSet resultSet = MySQL.execute("SELECT * FROM `supplier` "
                     + "INNER JOIN `company` ON `supplier`.`company_id`=`company`.`id`"
                     + "WHERE `mobile` LIKE '%" + searchText + "%' "
@@ -688,26 +693,26 @@ public class SupplierManagement extends javax.swing.JPanel {
                     + "OR `lname` LIKE '%" + searchText + "%' "
                     + "OR `company_name` LIKE '" + searchText + "' "
                     + "ORDER BY `fname` " + orderType + "");
-
+            
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
             model.setRowCount(0);
-
+            
             while (resultSet.next()) {
-
+                
                 String mobile = resultSet.getString("mobile");
-
+                
                 ResultSet resultSet2 = MySQL.execute("SELECT * FROM `grn` "
                         + "WHERE `supplier_mobile`='" + mobile + "'");
-
+                
                 double fullAmount = 0;
                 double paidAmount = 0;
-
+                
                 while (resultSet2.next()) {
                     String grnBarcode = resultSet2.getString("barcode");
-
+                    
                     ResultSet resultSet3 = MySQL.execute("SELECT * FROM `grn_item` "
                             + "WHERE `grn_barcode`='" + grnBarcode + "' ");
-
+                    
                     while (resultSet3.next()) {
                         Double buyingPrice = Double.parseDouble(resultSet3.getString("buying_price"));
                         int qty = Integer.parseInt(resultSet3.getString("qty"));
@@ -716,9 +721,9 @@ public class SupplierManagement extends javax.swing.JPanel {
                     }
                     paidAmount = paidAmount + Double.parseDouble(resultSet2.getString("total"));
                 }
-
+                
                 double pendingAmount = fullAmount - paidAmount;
-
+                
                 if (pendingAmount > 0) {
                     Vector vector = new Vector();
                     vector.add(resultSet.getString("mobile"));
@@ -737,10 +742,10 @@ public class SupplierManagement extends javax.swing.JPanel {
         }
     }
     
-    private void loadSettledPayments(){
+    private void loadSettledPayments() {
         String searchText = jTextField8.getText();
         int orderIndex = jComboBox3.getSelectedIndex();
-
+        
         try {
             String orderType;
             if (orderIndex == 0) {
@@ -748,7 +753,7 @@ public class SupplierManagement extends javax.swing.JPanel {
             } else {
                 orderType = "DESC";
             }
-
+            
             ResultSet resultSet = MySQL.execute("SELECT * FROM `supplier` "
                     + "INNER JOIN `company` ON `supplier`.`company_id`=`company`.`id`"
                     + "WHERE `mobile` LIKE '%" + searchText + "%' "
@@ -756,24 +761,24 @@ public class SupplierManagement extends javax.swing.JPanel {
                     + "OR `lname` LIKE '%" + searchText + "%' "
                     + "OR `company_name` LIKE '" + searchText + "' "
                     + "ORDER BY `fname` " + orderType + "");
-
+            
             DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
             model.setRowCount(0);
-
+            
             while (resultSet.next()) {
-
+                
                 String mobile = resultSet.getString("mobile");
-
+                
                 ResultSet resultSet2 = MySQL.execute("SELECT * FROM `grn` WHERE `supplier_mobile`='" + mobile + "'");
-
+                
                 double fullAmount = 0;
                 double paidAmount = 0;
-
+                
                 while (resultSet2.next()) {
                     String grnBarcode = resultSet2.getString("barcode");
-
+                    
                     ResultSet resultSet3 = MySQL.execute("SELECT * FROM `grn_item` WHERE `grn_barcode`='" + grnBarcode + "' ");
-
+                    
                     while (resultSet3.next()) {
                         Double buyingPrice = Double.parseDouble(resultSet3.getString("buying_price"));
                         int qty = Integer.parseInt(resultSet3.getString("qty"));
@@ -782,10 +787,10 @@ public class SupplierManagement extends javax.swing.JPanel {
                     }
                     paidAmount = paidAmount + Double.parseDouble(resultSet2.getString("total"));
                 }
-
+                
                 double pendingAmount = fullAmount - paidAmount;
-
-                if (pendingAmount == 0.0 && fullAmount!=0.0) {
+                
+                if (pendingAmount == 0.0 && fullAmount != 0.0) {
                     Vector vector = new Vector();
                     vector.add(resultSet.getString("mobile"));
                     vector.add(resultSet.getString("fname"));
@@ -800,13 +805,15 @@ public class SupplierManagement extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-
+    
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         AddSupplierCompany addSupplierCompany = new AddSupplierCompany();
-        addSupplierCompany.setVisible(true);
         addSupplierCompany.setSupplierManagement(this);
+        addSupplierCompany.setDashboard(dashboard);
+        addSupplierCompany.setVisible(true);
+        dashboard.setEnabled(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -815,7 +822,7 @@ public class SupplierManagement extends javax.swing.JPanel {
         String fName = jTextField2.getText();
         String lName = jTextField4.getText();
         String companyId = getSelectedCompanyId();
-
+        
         if (mobile.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Mobile Number", "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (!mobile.matches("^07[1245678]{1}[0-9]{7}$")) {
@@ -831,11 +838,11 @@ public class SupplierManagement extends javax.swing.JPanel {
         } else if (companyId.equals("")) {
             JOptionPane.showMessageDialog(this, "Please Select Supplier Company", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-
+            
             try {
-
+                
                 ResultSet resultset = MySQL.execute("SELECT * FROM `supplier` WHERE `mobile`='" + mobile + "'");
-
+                
                 if (resultset.next()) {
                     JOptionPane.showMessageDialog(this, "Mobile Number already added to a Supplier", "warning", JOptionPane.WARNING_MESSAGE);
                 } else {
@@ -845,13 +852,13 @@ public class SupplierManagement extends javax.swing.JPanel {
                     reset();
                     JOptionPane.showMessageDialog(this, "Supplier Added Successfully", "Success", JOptionPane.PLAIN_MESSAGE);
                 }
-
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            
         }
-
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -859,17 +866,17 @@ public class SupplierManagement extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         int selectedRow = jTable1.getSelectedRow();
-
+        
         if (evt.getClickCount() == 2 && selectedRow != -1) {
-
+            
             jTextField1.setText(String.valueOf(jTable1.getValueAt(selectedRow, 0)));
             jTextField2.setText(String.valueOf(jTable1.getValueAt(selectedRow, 1)));
             jTextField4.setText(String.valueOf(jTable1.getValueAt(selectedRow, 2)));
             jTextField3.setText(String.valueOf(jTable1.getValueAt(selectedRow, 3)));
-
+            
             String compnyId = getSupplierCompanyIdInMobile(String.valueOf(jTable1.getValueAt(selectedRow, 0)));
             setSelectedCompanyId(compnyId);
-
+            
             jTextField1.setEnabled(false);
             jButton1.setEnabled(false);
             jButton2.setEnabled(true);
@@ -897,7 +904,7 @@ public class SupplierManagement extends javax.swing.JPanel {
         String fName = jTextField2.getText();
         String lName = jTextField4.getText();
         String companyId = getSelectedCompanyId();
-
+        
         if (fName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter First Name", "warning", JOptionPane.WARNING_MESSAGE);
         } else if (fName.length() > 45) {
@@ -909,11 +916,11 @@ public class SupplierManagement extends javax.swing.JPanel {
         } else if (companyId.equals("")) {
             JOptionPane.showMessageDialog(this, "Please Select Supplier Company", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-
+            
             try {
-
+                
                 ResultSet resultset = MySQL.execute("SELECT * FROM `supplier` WHERE `mobile`='" + mobile + "'");
-
+                
                 if (resultset.next()) {
                     MySQL.execute("UPDATE `Supplier` SET `fname`='" + fName + "',`lname`='" + lName + "',`company_id`='" + companyId + "' WHERE `mobile`='" + mobile + "' ");
                     loadSuppliers();
@@ -925,11 +932,11 @@ public class SupplierManagement extends javax.swing.JPanel {
                 } else {
                     JOptionPane.showMessageDialog(this, "Something Went Wrong", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
-
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

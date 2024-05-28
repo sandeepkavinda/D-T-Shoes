@@ -17,52 +17,53 @@ import subpanel.ColorSetting;
 import subpanel.CompanySetting;
 import subpanel.SizeSettiing;
 import subpanel.CategorySetting;
+import subpanel.LowStock;
 
 public class Dashboard extends javax.swing.JFrame {
-
+    
     public static final DecimalFormat FORMAT = new DecimalFormat("#0.00");
     public static final Color PRIMARYCOLOR = new Color(0, 117, 105);
     public static UserBean userBean;
-
+    
     public void setUserBean(UserBean userBean) {
         this.userBean = userBean;
         jLabel6.setText(userBean.getUsername());
     }
-
+    
     public static void editTable(JTable[] table) {
         for (int i = 0; i < table.length; i++) {
             table[i].getTableHeader().setBackground(PRIMARYCOLOR);
             table[i].getTableHeader().setForeground(Color.WHITE);
         }
     }
-
+    
     public Dashboard() {
         initComponents();
-
+        
         MainPanel.removeAll();
         DashboardPanel dp = new DashboardPanel();
         MainPanel.add(dp, BorderLayout.CENTER);
         SwingUtilities.updateComponentTreeUI(jPanel3);
     }
-
+    
     private void setFontBold(JToggleButton jToggleButton) {
         Font currentFont = jToggleButton.getFont();
         Font boldFont = currentFont.deriveFont(Font.BOLD);
         jToggleButton.setFont(boldFont);
     }
-
+    
     private void setFontNormal(JToggleButton jToggleButton) {
         Font currentFont = jToggleButton.getFont();
         Font normalFont = currentFont.deriveFont(Font.PLAIN);
         jToggleButton.setFont(normalFont);
     }
-
+    
     private void changePanel(JPanel panel) {
         MainPanel.removeAll();
         MainPanel.add(panel, BorderLayout.CENTER);
         SwingUtilities.updateComponentTreeUI(jPanel3);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -92,9 +93,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -508,8 +507,6 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel6.setText("Rimas");
         jLabel6.setPreferredSize(new java.awt.Dimension(35, 30));
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(69, 30));
-
         jButton1.setForeground(new java.awt.Color(51, 51, 51));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/bell (2).png"))); // NOI18N
         jButton1.setText("Notifications");
@@ -518,8 +515,11 @@ public class Dashboard extends javax.swing.JFrame {
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jButton1.setPreferredSize(new java.awt.Dimension(139, 30));
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/glass.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -530,11 +530,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 654, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -544,12 +540,9 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -560,8 +553,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1281, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
@@ -728,9 +720,9 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-
+        
         if (jToggleButton1.isSelected()) {
-
+            
             Thread t = new Thread(
                     () -> {
                         for (int i = jPanel2.getWidth(); i >= 47; i -= 47) {
@@ -749,9 +741,9 @@ public class Dashboard extends javax.swing.JFrame {
                     }
             );
             t.start();
-
+            
         } else {
-
+            
             Thread t = new Thread(
                     () -> {
                         for (int i = 50; i <= 300; i += 50) {
@@ -790,15 +782,19 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton13FocusLost
 
     private void jToggleButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton13ActionPerformed
-        changePanel(new GrnManagement());
+        GrnManagement grnManagement = new GrnManagement();
+        grnManagement.setDashboard(this);
+        changePanel(grnManagement);
     }//GEN-LAST:event_jToggleButton13ActionPerformed
 
     private void jToggleButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton11ActionPerformed
-        changePanel(new DrawerManagement());
+        changePanel(new DrawerManagement(userBean));
     }//GEN-LAST:event_jToggleButton11ActionPerformed
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-        changePanel(new SupplierManagement());
+        SupplierManagement supplierManagement = new SupplierManagement();
+        supplierManagement.setDashboard(this);
+        changePanel(supplierManagement);
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
@@ -816,7 +812,9 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton7ActionPerformed
 
     private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton8ActionPerformed
-        changePanel(new ReturnManagement());
+        ReturnManagement returnManagement = new ReturnManagement();
+        returnManagement.setDashboard(this);
+        changePanel(returnManagement);
     }//GEN-LAST:event_jToggleButton8ActionPerformed
 
     private void jToggleButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton9ActionPerformed
@@ -824,7 +822,9 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton9ActionPerformed
 
     private void jToggleButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton10ActionPerformed
-        changePanel(new CustomManagement());
+        CustomManagement customManagement = new CustomManagement();
+        customManagement.setDashboard(this);
+        changePanel(customManagement);
     }//GEN-LAST:event_jToggleButton10ActionPerformed
 
     private void jToggleButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton12ActionPerformed
@@ -834,7 +834,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton12ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
+        
         new BrandSetiing(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -854,12 +854,16 @@ public class Dashboard extends javax.swing.JFrame {
         new CategorySetting(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new LowStock(this, true).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
     public static void main(String args[]) {
-
+        
         FlatLightLaf.registerCustomDefaultsSource("style");
         FlatLightLaf.setup();
         UIManager.put("TextComponent.arc", 10);
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Dashboard().setVisible(true);
@@ -873,7 +877,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -890,7 +893,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton10;
     private javax.swing.JToggleButton jToggleButton11;

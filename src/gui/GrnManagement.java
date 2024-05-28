@@ -757,6 +757,7 @@ public class GrnManagement extends javax.swing.JPanel {
         addProductList.setDashboard(dashboard);
         addProductList.setGrnManagement(this);
         addProductList.setVisible(true);
+        dashboard.setEnabled(false);
 
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -770,6 +771,7 @@ public class GrnManagement extends javax.swing.JPanel {
         addSupplier.setDashboard(dashboard);
         addSupplier.setGrnManagement(this);
         addSupplier.setVisible(true);
+        dashboard.setEnabled(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
@@ -833,45 +835,70 @@ public class GrnManagement extends javax.swing.JPanel {
             double buyingPrice = Double.parseDouble(bPrice);
             double sellingPrice = Double.parseDouble(sPrice);
             boolean found = false;
+            boolean canAdd = true;
 
-            for (int i = 0; i < rows; i++) {
-                String productId2 = String.valueOf(jTable1.getValueAt(i, 0));
-                String color2 = String.valueOf(jTable1.getValueAt(i, 7));
-                String size2 = String.valueOf(jTable1.getValueAt(i, 6));
-                String qty2 = String.valueOf(jTable1.getValueAt(i, 5));
+            try {
 
-                if (productId2.equals(productId)) {
-                    if (color2.equals(color)) {
-                        if (size2.equals(size)) {
-                            jTable1.setValueAt(Integer.parseInt(qty2) + Integer.parseInt(qty), i, 5);
-                            found = true;
-                            break;
+                ResultSet results = MySQL.execute("SELECT * FROM `stock` "
+                        + "INNER JOIN `product` ON `stock`.`p_id`=`product`.`p_id` "
+                        + "INNER JOIN `grn_item` ON `product`.`p_id`=`grn_item`.`product_p_id` WHERE `stock`.`p_id`='" + productId + "' "
+                        + "AND `stock`.`s_id`='" + sizeMap.get(size) + "' "
+                        + "AND `stock`.`co_id`='" + colorMap.get(color) + "' "
+                        + "AND `grn_item`.`buying_price`='" + buyingPrice + "'");
 
-                        }
-
+                if (results.next()) {
+                    double stockSellingPrice = results.getDouble("stock.price");
+                    if (stockSellingPrice != sellingPrice) {
+                        JOptionPane.showMessageDialog(this, "Same product already in stock! selling price cannot be different", "warning", JOptionPane.WARNING_MESSAGE);
+                        canAdd = false;
                     }
                 }
+
+                if (canAdd) {
+                    for (int i = 0; i < rows; i++) {
+                        String productId2 = String.valueOf(jTable1.getValueAt(i, 0));
+                        String color2 = String.valueOf(jTable1.getValueAt(i, 7));
+                        String size2 = String.valueOf(jTable1.getValueAt(i, 6));
+                        String qty2 = String.valueOf(jTable1.getValueAt(i, 5));
+
+                        if (productId2.equals(productId)) {
+                            if (color2.equals(color)) {
+                                if (size2.equals(size)) {
+                                    jTable1.setValueAt(Integer.parseInt(qty2) + Integer.parseInt(qty), i, 5);
+                                    found = true;
+                                    break;
+
+                                }
+
+                            }
+                        }
+                    }
+
+                    if (!found) {
+                        Vector v = new Vector();
+                        v.add(productId);
+                        v.add(productName);
+                        v.add(brandName);
+                        v.add(mainCategory);
+                        v.add(subCategory);
+                        v.add(qty);
+                        v.add(size);
+                        v.add(color);
+                        v.add(buyingPrice);
+                        v.add(sellingPrice);
+
+                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                        model.addRow(v);
+
+                    }
+                    calculateTotal();
+                    jButton7.setEnabled(true);
+                }
+
+            } catch (Exception e) {
+                SignIn.log1.warning(e.toString());
             }
 
-            if (!found) {
-                Vector v = new Vector();
-                v.add(productId);
-                v.add(productName);
-                v.add(brandName);
-                v.add(mainCategory);
-                v.add(subCategory);
-                v.add(qty);
-                v.add(size);
-                v.add(color);
-                v.add(buyingPrice);
-                v.add(sellingPrice);
-
-                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                model.addRow(v);
-
-            }
-            calculateTotal();
-            jButton7.setEnabled(true);
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -899,73 +926,83 @@ public class GrnManagement extends javax.swing.JPanel {
     }//GEN-LAST:event_jFormattedTextField3KeyReleased
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        String supplierId = jTextField1.getText();
-        String productId = jTextField3.getText();
-        String buyingPrice = String.valueOf(jTable1.getValueAt(0, 8));
-        String sellingPrice = String.valueOf(jTable1.getValueAt(0, 9));
-        String stringGrnDate = jTextField20.getText();
-        String qty = jTextField4.getText();
-        String size = String.valueOf(jComboBox2.getSelectedItem());
-        String color = String.valueOf(jComboBox1.getSelectedItem());
 
-        if (jTable1.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Please add products to save!", "Error", JOptionPane.WARNING_MESSAGE);
-        } else if (supplierId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please select supplier!", "Error", JOptionPane.WARNING_MESSAGE);
-        } else if (stringGrnDate.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please confirm GRN date!", "Error", JOptionPane.WARNING_MESSAGE);
-        } else if (jFormattedTextField3.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please type paid amount!", "Error", JOptionPane.WARNING_MESSAGE);
-        } else if (jTextField18.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please generate GRN No!", "Error", JOptionPane.WARNING_MESSAGE);
+        String grnNo = jTextField18.getText();
+        String grnDate = jTextField20.getText();
+        String supplierMobile = jTextField1.getText();
+        String total = jLabel21.getText();
+        String paidAmount = jFormattedTextField3.getText();
+
+        if (grnNo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please generate GRN number", "warning", JOptionPane.WARNING_MESSAGE);
+        } else if (grnDate.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select GRN date", "warning", JOptionPane.WARNING_MESSAGE);
+        } else if (supplierMobile.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select a supplier", "warning", JOptionPane.WARNING_MESSAGE);
+        } else if (paidAmount.isEmpty()) {
+            jFormattedTextField3.setText("0.00");
+        } else if (Double.parseDouble(paidAmount) < 0) {
+            JOptionPane.showMessageDialog(this, "Paid amount should be greater than zero", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            String grnId = jTextField18.getText();
-            double paidAmount = Double.parseDouble(jFormattedTextField3.getText());
-            double bPrice = Double.parseDouble(buyingPrice);
-            double sPrice = Double.parseDouble(sellingPrice);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
             try {
 
-                MySQL.execute("INSERT INTO `grn` VALUES('" + grnId + "','" + stringGrnDate + "','" + paidAmount + "','" + supplierId + "')");
-                ResultSet resultSet = MySQL.execute("SELECT * FROM `stock` WHERE "
-                        + "`p_id`='" + productId + "' AND "
-                        + "`price`='" + bPrice + "'");
+                // grn table
+                MySQL.execute("INSERT INTO `grn` (`barcode`,`date_time`,`total`,`supplier_mobile`) "
+                        + "VALUES ('" + grnNo + "','" + format.format(jDateChooser1.getDate()) + "','" + paidAmount + "','" + supplierMobile + "')");
 
-                String sid = "0";
+                int rowCount = jTable1.getRowCount();
+                for (int i = 0; i < rowCount; i++) {
 
-                if (resultSet.next()) {
-                    //stock exists             
-                    sid = resultSet.getString("barcode");
+                    String buyingPrice = String.valueOf(jTable1.getValueAt(i, 8));
+                    String sellingPrice = String.valueOf(jTable1.getValueAt(i, 9));
+                    String qty = String.valueOf(jTable1.getValueAt(i, 5));
+                    String productId = String.valueOf(jTable1.getValueAt(i, 0));
+                    String size = String.valueOf(jTable1.getValueAt(i, 6));
+                    String color = String.valueOf(jTable1.getValueAt(i, 7));
 
-                    String currentQty = resultSet.getString("available_qty");
-                    String updatedQty = String.valueOf(Double.parseDouble(currentQty) + qty);
-                    MySQL.execute("UPDATE `stock` SET `available_qty`='" + updatedQty + "' WHERE `barcode`='" + sid + "'");
+                    // stock table
+                    ResultSet results = MySQL.execute("SELECT * FROM `stock` "
+                            + "WHERE `stock`.`p_id`='" + productId + "' "
+                            + "AND `stock`.`s_id`='" + sizeMap.get(size) + "' "
+                            + "AND `stock`.`co_id`='" + colorMap.get(color) + "' "
+                            + "AND `stock`.`price`='" + sellingPrice + "'");
 
-                } else {
+                    String stockBarcode;
 
-                    long stockId = System.currentTimeMillis();
-                    MySQL.execute("INSERT INTO `stock` (`barcode`,`price`,`available_qty`,`p_id`,`s_id`,`co_id`) "
-                            + "VALUES ('" + stockId + "','" + bPrice + "','" + qty + "','" + productId + "','" + sizeMap.get(size) + "','" + colorMap.get(color) + "')");
+                    if (results.next()) {
+                        //stock exists             
+                        stockBarcode = results.getString("barcode");
 
-                    ResultSet resultSet2 = MySQL.execute("SELECT * FROM `stock` WHERE "
-                            + "`p_id`='" + productId + "' AND "
-                            + "`price`='" + bPrice + "'");
-                    if (resultSet2.next()) {
-                        sid = resultSet2.getString("barcode");
+                        String currentQty = results.getString("available_qty");
+                        String updatedQty = String.valueOf(Integer.parseInt(currentQty) + Integer.parseInt(qty));
+                        MySQL.execute("UPDATE `stock` SET `available_qty`='" + updatedQty + "' WHERE `barcode`='" + stockBarcode + "'");
+
+                    } else {
+                        //new stock          
+                        stockBarcode = String.valueOf(System.currentTimeMillis());
+
+                        MySQL.execute("INSERT INTO `stock` (`barcode`,`p_id`,`s_id`,`co_id`,`price`,`available_qty`) "
+                                + "VALUES ('" + stockBarcode + "','" + productId + "','" + sizeMap.get(size) + "',"
+                                + "'" + colorMap.get(color) + "','" + sellingPrice + "','" + qty + "')");
 
                     }
 
+                    // grn table
+                    MySQL.execute("INSERT INTO `grn_item` (`buying_price`,`qty`,`product_p_id`,`grn_barcode`) "
+                            + "VALUES ('" + buyingPrice + "','" + qty + "','" + productId + "','" + grnNo + "')");
+
                 }
-                MySQL.execute("INSERT INTO `grn_item` "
-                        + "(`id`,`qty`,`buying_price`,`product_p_id`,`grn_barcode`) "
-                        + "VALUES ('" + sid + "','" + qty + "','" + bPrice + "','" + productId + "','" + grnId + "')");
 
                 clearGRN();
-                JOptionPane.showMessageDialog(this, "GRN saved successfully!", "information", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "success", "Warning", JOptionPane.WARNING_MESSAGE);
+
             } catch (Exception e) {
-                e.printStackTrace();
+                SignIn.log1.warning(e.toString());
             }
         }
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jTextField19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField19ActionPerformed

@@ -1,13 +1,63 @@
 package gui;
 
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.MySQL;
+import model.UserBean;
 
 public class DrawerManagement extends javax.swing.JPanel {
 
-    public DrawerManagement() {
+    UserBean userbean;
+
+    public DrawerManagement(UserBean userBean) {
+        this.userbean = userBean;
         initComponents();
         JTable[] jt = {jTable1};
         Dashboard.editTable(jt);
+        loadTransactions("");
+    }
+
+    private void reset() {
+        jFormattedTextField1.setText("");
+        jTextField6.setText("");
+        jTextArea2.setText("");
+        buttonGroup1.clearSelection();
+        jButton1.setEnabled(true);
+        jButton2.setEnabled(false);
+        jTextField6.setEnabled(true);
+        jTable1.setEnabled(true);
+    }
+
+    private void loadTransactions(String text) {
+        try {
+            ResultSet results = MySQL.execute("SELECT * FROM `drawer` "
+                    + "INNER JOIN `transaction_type` ON `drawer`.`transaction_type_id`=`transaction_type`.`id` "
+                    + "INNER JOIN `user` ON `drawer`.`user_id`=`user`.`id` "
+                    + "WHERE `description` LIKE '%" + text + "%' "
+                    + "OR `date_time` like '" + text + "%' "
+                    + "OR `transaction_type`.`type` like '" + text + "%' "
+                    + "OR `user`.`username` like '" + text + "%'");
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            while (results.next()) {
+                Vector v = new Vector();
+                v.add(results.getString("drawer.id"));
+                v.add(results.getString("drawer.amount"));
+                v.add(results.getString("drawer.description"));
+                v.add(results.getString("transaction_type.type"));
+                v.add(results.getString("user.username"));
+                v.add(results.getString("drawer.date_time"));
+                model.addRow(v);
+            }
+        } catch (Exception e) {
+            SignIn.log1.warning(e.toString());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -33,8 +83,6 @@ public class DrawerManagement extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -74,16 +122,32 @@ public class DrawerManagement extends javax.swing.JPanel {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jButton1.setText("Add Drawer Change");
         jButton1.setPreferredSize(new java.awt.Dimension(79, 35));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(0, 117, 105));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jButton2.setText("Update Drawer Change");
+        jButton2.setEnabled(false);
         jButton2.setPreferredSize(new java.awt.Dimension(79, 35));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(118, 48, 129));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jButton4.setText("Clear All");
         jButton4.setPreferredSize(new java.awt.Dimension(79, 35));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFormattedTextField1.setPreferredSize(new java.awt.Dimension(128, 35));
@@ -97,9 +161,11 @@ public class DrawerManagement extends javax.swing.JPanel {
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Add");
+        jRadioButton1.setActionCommand("1");
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Deduct");
+        jRadioButton2.setActionCommand("2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,7 +178,7 @@ public class DrawerManagement extends javax.swing.JPanel {
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jFormattedTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -156,13 +222,13 @@ public class DrawerManagement extends javax.swing.JPanel {
         jLabel8.setText("Search Transaction");
 
         jTextField6.setPreferredSize(new java.awt.Dimension(249, 35));
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/glass.png"))); // NOI18N
-
-        jLabel5.setText("Drawer Balance");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("0.00");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -176,24 +242,17 @@ public class DrawerManagement extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel9))
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(389, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -202,7 +261,7 @@ public class DrawerManagement extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Amount", "Description", "Transaction Type", "User", "Date & Time"
+                "ID", "Amount", "Description", "Transaction Type", "Username", "Date & Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -211,6 +270,12 @@ public class DrawerManagement extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -244,6 +309,99 @@ public class DrawerManagement extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        loadTransactions(jTextField6.getText());
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        String amount = jFormattedTextField1.getText();
+        String description = jTextArea2.getText();
+
+        if (amount.isEmpty()) {
+            jFormattedTextField1.setText("0.00");
+        } else if (Double.parseDouble(amount) <= 0) {
+            JOptionPane.showMessageDialog(this, "Amount should be greater than zero", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (description.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please type description", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (buttonGroup1.getSelection() == null) {
+            JOptionPane.showMessageDialog(this, "Please select transaction type", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String selectionId = buttonGroup1.getSelection().getActionCommand();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+            try {
+
+                MySQL.execute("INSERT INTO `drawer` (`description`,`amount`,`date_time`,`transaction_type_id`,`user_id`) "
+                        + "VALUES ('" + description + "','" + Double.parseDouble(amount) + "','" + format.format(new Date()) + "',"
+                        + "'" + selectionId + "','" + userbean.getId() + "')");
+                reset();
+                loadTransactions("");
+                JOptionPane.showMessageDialog(this, "Transaction successfull", "Information", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception e) {
+                SignIn.log1.warning(e.toString());
+            }
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        reset();
+        loadTransactions("");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        String amount = jFormattedTextField1.getText();
+        String description = jTextArea2.getText();
+
+        if (amount.isEmpty()) {
+            jFormattedTextField1.setText("0.00");
+        } else if (Double.parseDouble(amount) <= 0) {
+            JOptionPane.showMessageDialog(this, "Amount should be greater than zero", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (description.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please type description", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (buttonGroup1.getSelection() == null) {
+            JOptionPane.showMessageDialog(this, "Please select transaction type", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String selectionId = buttonGroup1.getSelection().getActionCommand();
+            String id = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+            try {
+
+                MySQL.execute("UPDATE `drawer` SET `description`='" + description + "', `amount`='" + Double.parseDouble(amount)
+                        + "', `transaction_type_id`='" + selectionId + "' WHERE `id`='" + id + "'");
+                reset();
+                loadTransactions("");
+                JOptionPane.showMessageDialog(this, "Transaction updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception e) {
+                SignIn.log1.warning(e.toString());
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
+        int selectedRow = jTable1.getSelectedRow();
+        if (evt.getClickCount() == 2 && selectedRow != -1) {
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(true);
+            jTextField6.setEnabled(false);
+            jTable1.setEnabled(false);
+            jFormattedTextField1.setText(String.valueOf(jTable1.getValueAt(selectedRow, 1)));
+            jTextArea2.setText(String.valueOf(jTable1.getValueAt(selectedRow, 2)));
+            String transactionType = String.valueOf(jTable1.getValueAt(selectedRow, 3));
+            if (transactionType.equals("Add")) {
+                jRadioButton1.setSelected(true);
+            }
+            if (transactionType.equals("Deduct")) {
+                jRadioButton2.setSelected(true);
+            }
+        }
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -255,8 +413,6 @@ public class DrawerManagement extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
