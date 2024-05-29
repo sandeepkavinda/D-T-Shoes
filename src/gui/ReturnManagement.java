@@ -95,28 +95,25 @@ public class ReturnManagement extends javax.swing.JPanel {
 
     private void loadCustomerReturns() {
         try {
-            ResultSet customerReturnResultSet = MySQL.execute("SELECT * FROM `customer_return` INNER JOIN `invoice_item`\n"
-                    + "ON `customer_return`.`invoice_item_init_id` = `invoice_item`.`init_id`\n"
-                    + "INNER JOIN `invoice`\n"
-                    + "ON `invoice`.`in_id`= `invoice_item`.`init_id`\n"
-                    + "INNER JOIN `stock`\n"
-                    + "ON `stock`.`barcode` = `invoice_item`.`st_barcode`\n"
-                    + "INNER JOIN `size`\n"
-                    + "ON `size`.`s_id` = `stock`.`s_id`\n"
-                    + "INNER JOIN `color`\n"
-                    + "ON `color`.`co_id` = `stock`.`co_id`\n"
+            ResultSet customerReturnResultSet = MySQL.execute("SELECT *\n"
+                    + "FROM `customer_return`\n"
+                    + "INNER JOIN `invoice_item` ON `customer_return`.`invoice_item_init_id` = `invoice_item`.`init_id`\n"
+                    + "INNER JOIN `invoice` ON `invoice`.`in_id`= `invoice_item`.`in_id`\n"
+                    + "INNER JOIN `stock` ON `stock`.`barcode` = `invoice_item`.`st_barcode`\n"
+                    + "INNER JOIN `size` ON `size`.`s_id` = `stock`.`s_id`\n"
+                    + "INNER JOIN `color` ON `color`.`co_id` = `stock`.`co_id`\n"
                     + "INNER JOIN `product` ON `product`.p_id = `stock`.`p_id`");
 
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
 
             while (customerReturnResultSet.next()) {
-                String invoiceId = customerReturnResultSet.getString("init_id");
-                String stockBarcode = customerReturnResultSet.getString("barcode");
-                String productTitle = customerReturnResultSet.getString("title");
-                String size = customerReturnResultSet.getString("s_name");
-                String color = customerReturnResultSet.getString("co_name");
-                String quantity = customerReturnResultSet.getString("qty");
+                String invoiceId = customerReturnResultSet.getString("invoice_item.init_id");
+                String stockBarcode = customerReturnResultSet.getString("stock.barcode");
+                String productTitle = customerReturnResultSet.getString("product.title");
+                String size = customerReturnResultSet.getString("size.s_name");
+                String color = customerReturnResultSet.getString("color.co_name");
+                String quantity = customerReturnResultSet.getString("customer_return.qty");
 
                 Vector vector = new Vector();
                 vector.add(invoiceId);
