@@ -504,7 +504,7 @@ public class ReturnManagement extends javax.swing.JPanel {
                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel9)
-                        .addContainerGap(14, Short.MAX_VALUE))))
+                        .addContainerGap(29, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -540,7 +540,7 @@ public class ReturnManagement extends javax.swing.JPanel {
         jButton9.setBackground(new java.awt.Color(27, 49, 77));
         jButton9.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setText("Confirm Return");
+        jButton9.setText("Get Report");
         jButton9.setPreferredSize(new java.awt.Dimension(79, 35));
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
