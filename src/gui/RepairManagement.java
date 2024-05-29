@@ -17,8 +17,8 @@ public class RepairManagement extends javax.swing.JPanel {
         JTable[] jt = {jTable1};
         Dashboard.editTable(jt);
 //        loadRepairTable();
-        loadRepairCustomers("SELECT * FROM `other_service` "
-                + "INNER JOIN `order_status` ON `other_service`.`order_status_id`=`order_status`.`id`");
+        loadRepairCustomers("SELECT * FROM `repair` "
+                + "INNER JOIN `order_status` ON `repair`.`order_status_id`=`order_status`.`id`");
 
         jTextField5.setEnabled(false);
 
@@ -291,9 +291,7 @@ public class RepairManagement extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8))
+                    .addComponent(jLabel8)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -453,7 +451,7 @@ public class RepairManagement extends javax.swing.JPanel {
                         + "WHERE `mobile`='" + mobile + "'");
 
                 if (resultSet.next()) {
-                    MySQL.execute("INSERT INTO `other_service` "
+                    MySQL.execute("INSERT INTO `repair` "
                             + "(`barcode`,`description`,`amount`,`qty`,`payment`,`customer_mobile`,"
                             + "`order_date`,`deliver_date`) "
                             + "VALUES ('" + Barcode + "','" + description + "','" + amount + "',"
@@ -461,8 +459,8 @@ public class RepairManagement extends javax.swing.JPanel {
                             + "'" + mobile + "','" + format.format(orderDate) + "',"
                             + "'" + format.format(deliverDate) + "')");
                     resetPanel();
-                    loadRepairCustomers("SELECT * FROM `other_service` "
-                            + "INNER JOIN `order_status` ON `other_service`.`order_status_id`=`order_status`.`id`");
+                    loadRepairCustomers("SELECT * FROM `repair` "
+                            + "INNER JOIN `order_status` ON `repair`.`order_status_id`=`order_status`.`id`");
                     JOptionPane.showMessageDialog(this, "Customer saved successfully!",
                             "information", JOptionPane.INFORMATION_MESSAGE);
 
@@ -528,8 +526,8 @@ public class RepairManagement extends javax.swing.JPanel {
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
 
         String text = jTextField6.getText();
-        loadRepairCustomers("SELECT * FROM `other_service` "
-                + "INNER JOIN `order_status` ON `other_service`.`order_status_id`=`order_status`.`id`"
+        loadRepairCustomers("SELECT * FROM `repair` "
+                + "INNER JOIN `order_status` ON `repair`.`order_status_id`=`order_status`.`id`"
                 + "WHERE `barcode` LIKE '%" + text + "%' "
                 + "OR `customer_mobile` LIKE '" + text + "%'"
                 + "OR `description` LIKE '" + text + "%'"
@@ -576,7 +574,7 @@ public class RepairManagement extends javax.swing.JPanel {
         } else {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             try {
-                MySQL.execute("UPDATE `other_service` SET "
+                MySQL.execute("UPDATE `repair` SET "
                         + "`description`='" + description + "',"
                         + "`amount`='" + amount + "',"
                         + "`qty`='" + quantity + "',"
@@ -586,8 +584,8 @@ public class RepairManagement extends javax.swing.JPanel {
 
                 resetPanel();
 
-                loadRepairCustomers("SELECT * FROM `other_service` "
-                        + "INNER JOIN `order_status` ON `other_service`.`order_status_id`=`order_status`.`id`");
+                loadRepairCustomers("SELECT * FROM `repair` "
+                        + "INNER JOIN `order_status` ON `repair`.`order_status_id`=`order_status`.`id`");
 
                 JOptionPane.showMessageDialog(this, "Updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
 
@@ -609,14 +607,14 @@ public class RepairManagement extends javax.swing.JPanel {
 
             try {
                 if (status.equals("inprogress")) {
-                    MySQL.execute("UPDATE `other_service` SET `order_status_id`='2' "
+                    MySQL.execute("UPDATE `repair` SET `order_status_id`='2' "
                             + "WHERE `barcode`='" + barcode + "'");
                 } else {
-                    MySQL.execute("UPDATE `other_service` SET `order_status_id`='1' "
+                    MySQL.execute("UPDATE `repair` SET `order_status_id`='1' "
                             + "WHERE `barcode`='" + barcode + "'");
                 }
-                loadRepairCustomers("SELECT * FROM `other_service` "
-                        + "INNER JOIN `order_status` ON `other_service`.`order_status_id`=`order_status`.`id`");
+                loadRepairCustomers("SELECT * FROM `repair` "
+                        + "INNER JOIN `order_status` ON `repair`.`order_status_id`=`order_status`.`id`");
 
                 JOptionPane.showMessageDialog(this, "status changed successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
 

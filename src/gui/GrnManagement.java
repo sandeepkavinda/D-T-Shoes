@@ -3,22 +3,13 @@ package gui;
 import javax.swing.JTable;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.sql.ResultSet;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Random;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.MySQL;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRTableModelDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import subpanel.AddProductList;
 import subpanel.AddSupplier;
 
@@ -998,60 +989,7 @@ public class GrnManagement extends javax.swing.JPanel {
                     MySQL.execute("INSERT INTO `grn_item` (`buying_price`,`qty`,`product_p_id`,`grn_barcode`) "
                             + "VALUES ('" + buyingPrice + "','" + qty + "','" + productId + "','" + grnNo + "')");
 
-                }
-                
-//                //Print Invoice
-//                try {
-//                   HashMap<String, Object> map = new HashMap<>();
-//                map.put("grnno", jTextField18.getText());
-//                map.put("supcontact", jTextField1.getText());
-//                map.put("supname", jTextField19.getText());
-//                map.put("date", jTextField20.getText());
-//                map.put("total", jLabel21.getText());
-//                map.put("payment", jFormattedTextField3.getText());
-//                map.put("balance", jLabel22.getText());
-//
-//                    String reportPath = "/reports/Grn.jasper";
-//
-//                    DefaultTableModel model = new DefaultTableModel();
-//                    
-//                    model.addColumn("id");
-//                    model.addColumn("category");
-//                    model.addColumn("model");
-//                    model.addColumn("brand");
-//                    model.addColumn("buying");
-//                    model.addColumn("selling");
-//                    model.addColumn("qty");
-//
-//                    for (int x = 0; x < rowCount; x++) {
-//                        Vector v = new Vector();
-//                        
-//                        String id = String.valueOf(jTable1.getValueAt(x, 0));
-//                        String category = String.valueOf(jTable1.getValueAt(x, 3));
-//                        String brand = String.valueOf(jTable1.getValueAt(x, 2));
-//                        String productName = String.valueOf(jTable1.getValueAt(x, 1));
-//                        String bPrice = String.valueOf(jTable1.getValueAt(x, 8));
-//                        String sPrice = String.valueOf(jTable1.getValueAt(x, 10));
-//                        String qty = String.valueOf(jTable1.getValueAt(x, 5));
-//
-//                        v.add(id);
-//                        v.add(category);
-//                        v.add(brand);
-//                        v.add(productName);
-//                        v.add(bPrice);
-//                        v.add(sPrice);
-//                        v.add(qty);
-//                       
-//                        model.addRow(v);
-//                    }
-//
-//                    JRDataSource dataSource = new JRTableModelDataSource(model);
-//
-//                    JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream(reportPath), map, dataSource);
-//                    JasperViewer.viewReport(print, false);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+                }             
 
                 clearGRN();
                 JOptionPane.showMessageDialog(this, "success", "Warning", JOptionPane.WARNING_MESSAGE);
