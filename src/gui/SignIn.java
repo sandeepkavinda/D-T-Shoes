@@ -70,7 +70,7 @@ public class SignIn extends javax.swing.JFrame {
 
         jLabel3.setText("Username");
 
-        jTextField1.setText("Daham Bandara");
+        jTextField1.setText("ab");
         jTextField1.setPreferredSize(new java.awt.Dimension(69, 35));
 
         jLabel4.setText("Password");

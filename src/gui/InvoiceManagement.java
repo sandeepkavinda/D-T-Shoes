@@ -13,6 +13,12 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.MySQL;
 import model.UserBean;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import subpanel.CustomerList;
 import subpanel.StockList;
 
@@ -707,7 +713,7 @@ public class InvoiceManagement extends javax.swing.JPanel {
                         .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(198, 198, 198))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -906,10 +912,61 @@ public class InvoiceManagement extends javax.swing.JPanel {
 
                     //stock update
                     MySQL.execute("UPDATE `stock` SET `available_qty`=`available_qty`-'" + qty + "' WHERE `barcode`='" + barcode + "'");
+
+                }
+
+                //Print Invoice
+                try {
+                    HashMap<String, Object> parameters = new HashMap<>();
+                    parameters.put("invoice_id", invoiceId);
+                    parameters.put("barcode", invoiceId);
+                    parameters.put("date", format.format(dateTime));
+                    parameters.put("cashier", userBean.getUsername());
+                    parameters.put("sub_total", jLabel26.getText());
+                    parameters.put("discount", jFormattedTextField2.getText());
+                    parameters.put("net_total", jLabel28.getText());
+                    parameters.put("paid_amount", paidAmount);
+                    parameters.put("balance", jLabel35.getText());
+
+                    String reportPath = "/reports/invoice.jasper";
+
+                    DefaultTableModel model = new DefaultTableModel();
+                    
+                    model.addColumn("id");
+                    model.addColumn("name");
+                    model.addColumn("price");
+                    model.addColumn("qty");
+                    model.addColumn("discount");
+                    model.addColumn("discount");
+
+
+                    for (int x = 0; x < rowCount; x++) {
+                        Vector v = new Vector();
+                        String productName = String.valueOf(jTable1.getValueAt(x, 2) + "(" +String.valueOf(jTable1.getValueAt(x, 6)) + ") - Size " + String.valueOf(jTable1.getValueAt(x, 7)));
+                        Double price = Double.parseDouble(String.valueOf(jTable1.getValueAt(x, 8)));
+                        int qty = Integer.valueOf(String.valueOf(jTable1.getValueAt(x, 10)));
+                        Double discount = Double.parseDouble(String.valueOf(jTable1.getValueAt(x, 9)));
+                        Double total = (price * qty) - discount;
+
+                        v.add(String.valueOf(x+1));
+                        v.add(String.valueOf(productName));
+                        v.add(String.valueOf(price));
+                        v.add(String.valueOf(qty));
+                        v.add(String.valueOf(discount));
+                        v.add(String.valueOf(total));
+                     
+                        model.addRow(v);
+                    }
+
+                    JRDataSource dataSource = new JRTableModelDataSource(model);
+
+                    JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream(reportPath), parameters, dataSource);
+                    JasperViewer.viewReport(print, false);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 reset();
-                JOptionPane.showMessageDialog(this, "Invoice Saved", "Information", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (Exception e) {
                 SignIn.log1.warning(e.toString());
@@ -917,8 +974,9 @@ public class InvoiceManagement extends javax.swing.JPanel {
 
         }
 
-    }//GEN-LAST:event_jButton8ActionPerformed
 
+    }//GEN-LAST:event_jButton8ActionPerformed
+    
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         reset();
     }//GEN-LAST:event_jButton9ActionPerformed
