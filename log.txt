@@ -800,3 +800,489 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-05-29T06:00:58</date>
+  <millis>1716942658200</millis>
+  <sequence>0</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>net.sf.jasperreports.engine.fill.JRExpressionEvalException: Error evaluating expression for source text: $F{COLUMN_8}</message>
+</record>
+<record>
+  <date>2024-05-29T06:00:59</date>
+  <millis>1716942659262</millis>
+  <sequence>1</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:00:59</date>
+  <millis>1716942659911</millis>
+  <sequence>2</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:00</date>
+  <millis>1716942660132</millis>
+  <sequence>3</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:00</date>
+  <millis>1716942660332</millis>
+  <sequence>4</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:00</date>
+  <millis>1716942660516</millis>
+  <sequence>5</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:05</date>
+  <millis>1716942665636</millis>
+  <sequence>6</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:08</date>
+  <millis>1716942668635</millis>
+  <sequence>7</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:08</date>
+  <millis>1716942668851</millis>
+  <sequence>8</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:09</date>
+  <millis>1716942669068</millis>
+  <sequence>9</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:09</date>
+  <millis>1716942669267</millis>
+  <sequence>10</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:09</date>
+  <millis>1716942669460</millis>
+  <sequence>11</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:09</date>
+  <millis>1716942669660</millis>
+  <sequence>12</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:09</date>
+  <millis>1716942669851</millis>
+  <sequence>13</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:10</date>
+  <millis>1716942670044</millis>
+  <sequence>14</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:10</date>
+  <millis>1716942670239</millis>
+  <sequence>15</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:01:11</date>
+  <millis>1716942671652</millis>
+  <sequence>16</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942631065' for key 'grn.PRIMARY'</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-05-29T06:02:04</date>
+  <millis>1716942724404</millis>
+  <sequence>0</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>net.sf.jasperreports.engine.fill.JRExpressionEvalException: Error evaluating expression for source text: $F{COLUMN_8}</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:04</date>
+  <millis>1716942724431</millis>
+  <sequence>1</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:04</date>
+  <millis>1716942724437</millis>
+  <sequence>2</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:04</date>
+  <millis>1716942724491</millis>
+  <sequence>3</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:04</date>
+  <millis>1716942724708</millis>
+  <sequence>4</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:04</date>
+  <millis>1716942724908</millis>
+  <sequence>5</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:05</date>
+  <millis>1716942725107</millis>
+  <sequence>6</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:05</date>
+  <millis>1716942725308</millis>
+  <sequence>7</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:05</date>
+  <millis>1716942725500</millis>
+  <sequence>8</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:05</date>
+  <millis>1716942725699</millis>
+  <sequence>9</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:05</date>
+  <millis>1716942725899</millis>
+  <sequence>10</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:06</date>
+  <millis>1716942726092</millis>
+  <sequence>11</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:06</date>
+  <millis>1716942726285</millis>
+  <sequence>12</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:06</date>
+  <millis>1716942726475</millis>
+  <sequence>13</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:06</date>
+  <millis>1716942726683</millis>
+  <sequence>14</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:06</date>
+  <millis>1716942726883</millis>
+  <sequence>15</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:07</date>
+  <millis>1716942727909</millis>
+  <sequence>16</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:08</date>
+  <millis>1716942728132</millis>
+  <sequence>17</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:08</date>
+  <millis>1716942728324</millis>
+  <sequence>18</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:08</date>
+  <millis>1716942728515</millis>
+  <sequence>19</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:08</date>
+  <millis>1716942728702</millis>
+  <sequence>20</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:08</date>
+  <millis>1716942728900</millis>
+  <sequence>21</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:09</date>
+  <millis>1716942729100</millis>
+  <sequence>22</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+<record>
+  <date>2024-05-29T06:02:09</date>
+  <millis>1716942729299</millis>
+  <sequence>23</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.GrnManagement</class>
+  <method>jButton7ActionPerformed</method>
+  <thread>15</thread>
+  <message>java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1716942718913' for key 'grn.PRIMARY'</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-05-29T06:39:40</date>
+  <millis>1716944980786</millis>
+  <sequence>0</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.DrawerManagement</class>
+  <method>loadTransactions</method>
+  <thread>15</thread>
+  <message>java.sql.SQLSyntaxErrorException: Table 'd&amp;t_db.drawer' doesn't exist</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
