@@ -119,7 +119,7 @@
                       <Component id="jTextField2" max="32767" attributes="0"/>
                       <Component id="jTextField3" max="32767" attributes="0"/>
                       <Component id="jTextField4" max="32767" attributes="0"/>
-                      <Component id="jPasswordField1" alignment="0" pref="263" max="32767" attributes="0"/>
+                      <Component id="jPasswordField1" alignment="0" pref="251" max="32767" attributes="0"/>
                       <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">

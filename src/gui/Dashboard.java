@@ -23,14 +23,12 @@ public class Dashboard extends javax.swing.JFrame {
 
     public static final DecimalFormat FORMAT = new DecimalFormat("#0.00");
     public static final Color PRIMARYCOLOR = new Color(0, 117, 105);
-    public static UserBean userBean;
 
-    public void setUserBean(UserBean userBean) {
-        this.userBean = userBean;
-        jLabel5.setText(userBean.getUsername());
-        jLabel6.setText(userBean.getUserType());
-    }
-
+//    public void setUserBean(UserBean userBean) {
+//        this.userBean = userBean;
+//        jLabel5.setText(userBean.getUsername());
+//        jLabel6.setText(userBean.getUserType());
+//    }
     public static void editTable(JTable[] table) {
         for (int i = 0; i < table.length; i++) {
             table[i].getTableHeader().setBackground(PRIMARYCOLOR);
@@ -38,13 +36,29 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }
 
+    private void disableOptionsForUser() {
+        if (SignIn.userBean.getUserType().equals("Cashier")) {
+            jToggleButton3.setEnabled(false);
+            jToggleButton4.setEnabled(false);
+            jToggleButton6.setEnabled(false);
+            jToggleButton7.setEnabled(false);
+            jToggleButton13.setEnabled(false);
+            jToggleButton11.setEnabled(false);
+            jMenu2.setEnabled(false);
+        }
+    }
+
     public Dashboard() {
         initComponents();
+
+        jLabel5.setText(SignIn.userBean.getUsername());
+        jLabel6.setText(SignIn.userBean.getUserType());
 
         MainPanel.removeAll();
         DashboardPanel dp = new DashboardPanel();
         MainPanel.add(dp, BorderLayout.CENTER);
         SwingUtilities.updateComponentTreeUI(jPanel3);
+        disableOptionsForUser();
     }
 
     private void setFontBold(JToggleButton jToggleButton) {
@@ -805,7 +819,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton13ActionPerformed
 
     private void jToggleButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton11ActionPerformed
-        changePanel(new DrawerManagement(userBean));
+        changePanel(new DrawerManagement(SignIn.userBean));
     }//GEN-LAST:event_jToggleButton11ActionPerformed
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
@@ -845,7 +859,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton10ActionPerformed
 
     private void jToggleButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton12ActionPerformed
-        InvoiceManagement im = new InvoiceManagement(userBean);
+        InvoiceManagement im = new InvoiceManagement(SignIn.userBean);
         im.setDashboard(this);
         changePanel(im);
     }//GEN-LAST:event_jToggleButton12ActionPerformed

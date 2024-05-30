@@ -28,6 +28,7 @@ public class SignIn extends javax.swing.JFrame {
     public SignIn() {
         initComponents();
     }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -208,7 +209,7 @@ public class SignIn extends javax.swing.JFrame {
                         userBean.setUserType(resultSet.getString("user_type.type"));
 
                         Dashboard dashboard = new Dashboard();
-                        dashboard.setUserBean(userBean);
+                       // dashboard.setUserBean(userBean);
                         dashboard.setVisible(true);
                         this.dispose();
 
