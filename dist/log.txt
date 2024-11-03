@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-10-05T13:11:05.474563800Z</date>
+  <millis>1728133865474</millis>
+  <nanos>563800</nanos>
+  <sequence>0</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.DashboardPanel</class>
+  <method>calculateRepairIncome</method>
+  <thread>17</thread>
+  <message>java.sql.SQLSyntaxErrorException: Table 'd&amp;t_db.repair' doesn't exist</message>
+</record>
+<record>
+  <date>2024-10-05T13:11:05.505851Z</date>
+  <millis>1728133865505</millis>
+  <nanos>851000</nanos>
+  <sequence>1</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.DashboardPanel</class>
+  <method>calculateRepairIncome</method>
+  <thread>17</thread>
+  <message>java.sql.SQLSyntaxErrorException: Table 'd&amp;t_db.repair' doesn't exist</message>
+</record>
+<record>
+  <date>2024-10-05T13:11:05.521432300Z</date>
+  <millis>1728133865521</millis>
+  <nanos>432300</nanos>
+  <sequence>2</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.DashboardPanel</class>
+  <method>calculateRepairIncome</method>
+  <thread>17</thread>
+  <message>java.sql.SQLSyntaxErrorException: Table 'd&amp;t_db.repair' doesn't exist</message>
+</record>
+<record>
+  <date>2024-10-05T13:11:05.539109700Z</date>
+  <millis>1728133865539</millis>
+  <nanos>109700</nanos>
+  <sequence>3</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.DashboardPanel</class>
+  <method>setDrawerBalance</method>
+  <thread>17</thread>
+  <message>java.sql.SQLSyntaxErrorException: Table 'd&amp;t_db.drawer' doesn't exist</message>
+</record>
+<record>
+  <date>2024-10-05T13:12:55.397805700Z</date>
+  <millis>1728133975397</millis>
+  <nanos>805700</nanos>
+  <sequence>4</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.DrawerManagement</class>
+  <method>loadTransactions</method>
+  <thread>17</thread>
+  <message>java.sql.SQLSyntaxErrorException: Table 'd&amp;t_db.drawer' doesn't exist</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-11-03T15:30:05.427200400Z</date>
+  <millis>1730647805427</millis>
+  <nanos>200400</nanos>
+  <sequence>0</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.DashboardPanel</class>
+  <method>calculateRepairIncome</method>
+  <thread>17</thread>
+  <message>java.sql.SQLSyntaxErrorException: Table 'd&amp;t_db.repair' doesn't exist</message>
+</record>
+<record>
+  <date>2024-11-03T15:30:05.474071900Z</date>
+  <millis>1730647805474</millis>
+  <nanos>71900</nanos>
+  <sequence>1</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.DashboardPanel</class>
+  <method>calculateRepairIncome</method>
+  <thread>17</thread>
+  <message>java.sql.SQLSyntaxErrorException: Table 'd&amp;t_db.repair' doesn't exist</message>
+</record>
+<record>
+  <date>2024-11-03T15:30:05.474071900Z</date>
+  <millis>1730647805474</millis>
+  <nanos>71900</nanos>
+  <sequence>2</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.DashboardPanel</class>
+  <method>calculateRepairIncome</method>
+  <thread>17</thread>
+  <message>java.sql.SQLSyntaxErrorException: Table 'd&amp;t_db.repair' doesn't exist</message>
+</record>
+<record>
+  <date>2024-11-03T15:30:05.489704400Z</date>
+  <millis>1730647805489</millis>
+  <nanos>704400</nanos>
+  <sequence>3</sequence>
+  <logger>log1</logger>
+  <level>WARNING</level>
+  <class>gui.DashboardPanel</class>
+  <method>setDrawerBalance</method>
+  <thread>17</thread>
+  <message>java.sql.SQLSyntaxErrorException: Table 'd&amp;t_db.drawer' doesn't exist</message>
+</record>
+</log>
