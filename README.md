@@ -46,11 +46,18 @@ A desktop shoe store management system for **D&T Shoe Store**. It handles day-to
    git clone https://github.com/sandeepkavinda/D-T-Shoes.git
    ```
 
-2. **Set up the database**
+2. **Switch to branch master**
+
+   ```bash
+   cd D-T-Shoes
+   git switch master
+   ```
+
+3. **Set up the database**
    - Open your preferred MySQL database management tool.
    - Import and execute the SQL file located at `database/d&t_db.sql` to create the database tables and insert.
 
-3. **Database Configuration**
+4. **Database Configuration**
    - Navigate to the `src\model\MySQL.java` directory.
    - Update it with your MySQL credentials.
 
@@ -60,10 +67,10 @@ A desktop shoe store management system for **D&T Shoe Store**. It handles day-to
 
    Replace YOUR_PASSWORD_HERE with your actual MySQL password.
 
-4. **Open the project**
+5. **Open the project**
    - Open NetBeans and choose **File → Open Project**, then select the `D&T_Shoes` folder.
 
-5. **Run the application**
+6. **Run the application**
    - Right-click the project and choose **Run**. `gui.SignIn` is the main class.
 
 ## Team
